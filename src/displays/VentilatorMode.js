@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import ScenarioDropdown from '../components/dropdown/Dropdown';
+import ScenarioDropdown from '../components/Dropdown';
 const VentilatorMode = () => {
-  // Example data for scenarios. This would typically come from props or a global state.
+    // Example data for scenarios. This would typically come from props or a global state.
   const [scenarios, setScenarios] = useState([
     { id: 'vc', name: 'VOLUME CONTROL' },
     { id: 'pc', name: 'PRESSURE CONTROL' },
