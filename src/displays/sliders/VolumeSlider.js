@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Slider from '../../components/Slider'
 
 function VolumeSlider() {
+  const [volume, setVolume] = useState(500);
+
+  const handleVolumeChange = (event) => {
+    setVolume(Number(event.target.value));
+  };
   return (
     <div>
-       <Slider label="Volume" min={0} max={3000} step={1} value={500} onChange={(val) => console.log(val)} />
+       <Slider label="Volume" min={0} max={3000} step={50} value={volume} onChange={handleVolumeChange} />
 
     </div>
   )

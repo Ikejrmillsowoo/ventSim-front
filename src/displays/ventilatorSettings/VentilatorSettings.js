@@ -4,6 +4,7 @@ import InspiratoryPressureSlider from '../sliders/InspiratoryPressureSlider'
 import OxygenSlider from '../sliders/OxygenSlider'
 import SupportPressureSlider from '../sliders/SupportPressureSlider'
 import PeepSlider from '../sliders/PeepSlider'
+import VolumeSlider from '../sliders/VolumeSlider'
 
 function VentilatorSettings() {
   return (
