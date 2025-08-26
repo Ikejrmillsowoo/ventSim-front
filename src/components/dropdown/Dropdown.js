@@ -1,5 +1,6 @@
 import React from 'react';
 
+// A reusable dropdown component for selecting menu options
 const ScenarioDropdown = ({ scenarios, selectedScenario, onScenarioChange }) => {
   return (
     <div className="scenario-selector">

@@ -1,17 +1,12 @@
-import React from 'react';
-
 import { useState } from 'react';
-import ScenarioDropdown from '../dropdown/Dropdown';
-const Header = () => {
+import ScenarioDropdown from '../components/dropdown/Dropdown';
+const VentilatorMode = () => {
   // Example data for scenarios. This would typically come from props or a global state.
   const [scenarios, setScenarios] = useState([
-    { id: 'normal', name: 'NORMAL PATIENT' },
-    { id: 'ards', name: 'ARDS (Acute Respiratory Distress Syndromme)' },
-    { id: 'copd', name: 'COPD (Chronic Obstructive Pulmonary Disease)' },
-    { id: 'asthma', name: 'ASTHMA' },
-    { id: 'nuero', name: 'NEUROMASCULAR DISEASE' },
-    { id: 'pe', name: 'PE (Pulmonary Emobolism)' },
-    { id: 'sedation', name: 'SEDATION' },
+    { id: 'vc', name: 'VOLUME CONTROL' },
+    { id: 'pc', name: 'PRESSURE CONTROL' },
+    { id: 'ps', name: 'PRESSURE SUPPORT' },
+    { id: 'cpap', name: 'CONTIMOUS POSITIVE AIRWAY PRESSURE' },
   ]);
 
   const [selectedScenario, setSelectedScenario] = useState(scenarios[0].id);
@@ -22,15 +17,15 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <div>
       {/* Other header content can go here */}
       <ScenarioDropdown
         scenarios={scenarios}
         selectedScenario={selectedScenario}
         onScenarioChange={handleScenarioChange}
       />
-    </header>
+    </div>
   );
 };
 
-export default Header;
+export default VentilatorMode;
