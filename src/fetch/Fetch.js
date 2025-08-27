@@ -6,8 +6,15 @@
  * @returns {Promise<object>} A promise that resolves to the JSON response from the server.
  * @throws {Error} Throws an error if the network request fails or the server responds with an error.
  */
-const postVentilatorSettings = async (settings) => {
+const postVentilatorSettings = async ({rate, pressure, oxygen, supportPressure, volume, peep}) => {
   const API_URL = 'http://localhost:8080/api/simulate';
+    const settings = { 
+        RR: rate, 
+        Vt: volume, 
+        PEEP: peep,
+        PS: supportPressure,
+        FiO2: oxygen
+     }; // Example settings; replace with actual data as needed
 
   try {
     const response = await fetch(API_URL, {
