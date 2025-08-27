@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Slider from "../../components/Slider";
 
-function RespiratoryRateSlider() {
-  const [rate, setRate] = useState(20);
+function RespiratoryRateSlider({setRate, rate}) {
+  // const [rate, setRate] = useState(20);
 
   const handleRateChange = (event) => {
     setRate(Number(event.target.value));
