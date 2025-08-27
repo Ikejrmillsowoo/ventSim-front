@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Slider from '../../components/Slider'
 
-function OxygenSlider() {
-  const [oxygen, setOxygen] = useState(21);
+function OxygenSlider({oxygen, setOxygen}) {
+  // const [oxygen, setOxygen] = useState(21);
   
     const handleOxygenChange = (event) => {
       setOxygen(Number(event.target.value));

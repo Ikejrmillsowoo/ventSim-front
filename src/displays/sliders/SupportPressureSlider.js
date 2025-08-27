@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Slider from '../../components/Slider'
 
-function SupportPressureSlider() {
+function SupportPressureSlider({supportPersure, setSupportPressure}) {
   const [supportPersure, setSupportPressure] = useState(10);
 
   const handleSupportPressureChange = (event) => {

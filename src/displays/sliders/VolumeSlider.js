@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Slider from '../../components/Slider'
 
-function VolumeSlider() {
+function VolumeSlider({volume, setVolume}) {
   const [volume, setVolume] = useState(500);
 
   const handleVolumeChange = (event) => {

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Slider from '../../components/Slider'
 
-function PeepSlider() {
-  const [peep, setPeep] = useState(5);
+function PeepSlider({peep, setPeep}) {
+  // const [peep, setPeep] = useState(5);
 
   const handlePeepChange = (event) => {
     setPeep(Number(event.target.value));
