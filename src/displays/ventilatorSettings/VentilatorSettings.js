@@ -10,7 +10,6 @@ import postVentilatorSettings from '../../fetch/Fetch'
 
 function VentilatorSettings() {
     const [rate, setRate] = useState(20);
-    console.log(rate);
     const [pressure, setPressure] = useState(20);
     const [oxygen, setOxygen] = useState(21);
     const [supportPressure, setSupportPressure] = useState(10);
@@ -21,8 +20,9 @@ function VentilatorSettings() {
         e.preventDefault();
         console.log({ rate, pressure, oxygen, supportPressure, volume, peep });
         try {
-            await postVentilatorSettings({ rate, pressure, oxygen, supportPressure, volume, peep });
+            const response = await postVentilatorSettings({ rate, pressure, oxygen, supportPressure, volume, peep });
             // Optionally handle response or show success message
+            console.log(response);
         } catch (error) {
             // Optionally handle error or show error message
             console.error(error);
@@ -35,7 +35,7 @@ function VentilatorSettings() {
         <RespiratoryRateSlider setRate={setRate} rate={rate} />
         <InspiratoryPressureSlider pressure={pressure} setPressure={setPressure} />
         <OxygenSlider oxygen={oxygen} setOxygen={setOxygen} />
-        <SupportPressureSlider supportPressure={supportPressure}  setSupportPressure={setSupportPressure}/>
+        <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/>
         <VolumeSlider volume={volume} setVolume={setVolume} />
         <PeepSlider peep={peep} setPeep={setPeep} />
         <Button onClick={handleSubmit}>Submit Changes</Button>

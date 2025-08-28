@@ -9,11 +9,15 @@
 const postVentilatorSettings = async ({rate, pressure, oxygen, supportPressure, volume, peep}) => {
   const API_URL = 'http://localhost:8080/api/simulate';
     const settings = { 
-        RR: rate, 
-        Vt: volume, 
-        PEEP: peep,
-        PS: supportPressure,
-        FiO2: oxygen
+        respiratoryRate: rate, 
+        tidalVolume: volume, 
+        peep: peep,
+        supportPressure: supportPressure,
+        fio2: oxygen,
+        inspiratoryPressure: pressure,
+        scenario: "normal",
+        mode: "volume Control",
+        weight: 70,  
      }; // Example settings; replace with actual data as needed
 
   try {
@@ -30,7 +34,6 @@ const postVentilatorSettings = async ({rate, pressure, oxygen, supportPressure, 
       const errorBody = await response.text();
       throw new Error(`HTTP error ${response.status}: ${response.statusText}, Body: ${errorBody}`);
     }
-    console.log('Response received from server:', response.json());
     return await response.json();
   } catch (error) {
     console.error('Failed to post ventilator settings:', error);
