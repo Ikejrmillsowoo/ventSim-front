@@ -15,7 +15,7 @@ const postVentilatorSettings = async ({rate, pressure, oxygen, supportPressure, 
         supportPressure: supportPressure,
         fio2: oxygen,
         inspiratoryPressure: pressure,
-        scenario: "normal",
+        scenario: "copd",
         mode: "volume Control",
         weight: 70,  
      }; // Example settings; replace with actual data as needed
