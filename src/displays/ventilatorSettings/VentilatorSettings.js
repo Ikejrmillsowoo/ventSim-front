@@ -67,7 +67,7 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
             <VolumeSlider volume={volume} setVolume={setVolume} />
             <PeepSlider peep={peep} setPeep={setPeep} />
             {/* Button to submit changes */}
-            <Button onClick={handleSubmit}>Submit Changes</Button>
+            <Button className='btn btn-primary mt-3' onClick={handleSubmit}>Submit Changes</Button>
             {/* Display feedback and status from API */}
             <FeedBack feedback={feedback} status={status} />
         </div>

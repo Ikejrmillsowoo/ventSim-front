@@ -44,21 +44,37 @@ function App() {
   // console.log("Patient condition in Header:", condition);
   
 
-  async function handleClick() {
-    try {
-      const result = await postVentilatorSettings({ RR: 20, Vt: 500, PEEP: 5 });
-      setAbgData(result);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // async function handleClick() {
+  //   try {
+  //     const result = await postVentilatorSettings({ RR: 20, Vt: 500, PEEP: 5 });
+  //     setAbgData(result);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   return (
-    <div className="App">
+    <div className="App container py-4">
+      <section className='mb-2'>
       <Header setPatientCondition={setPatientCondition}/>
+
+      </section>
+      <section className='row'>
+        <div className='col-md-6 mb-3'>
       <VentilatorParams ventForm={ventForm} data={abgData}/>
+      </div>
+      <div className='col-md-6 mb-3'>
       <ABGDisplay abgData={abgData} />
-      <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} ventForm={ventForm} />
+      </div>
+      </section>
+      <section className='mb-4'>
+        <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} ventForm={ventForm} />
+      </section>
+     
+      {/* <Header setPatientCondition={setPatientCondition}/> */}
+      {/* <VentilatorParams ventForm={ventForm} data={abgData}/>
+      <ABGDisplay abgData={abgData} />
+      <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} ventForm={ventForm} /> */}
       <Footer />
     </div>
   );

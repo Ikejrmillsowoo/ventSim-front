@@ -10,7 +10,7 @@ function InspiratoryPressureSlider({pressure, setPressure}) {
   };
 
   return (
-    <div>
+    <div >
         <Slider label="Pressure" min={0} max={50} step={1} value={pressure} onChange={handlePressureChange} />
     </div>
   )

@@ -6,10 +6,15 @@ const Header = ({setPatientCondition}) => {
  
 
   return (
-    <div>
+    <div className='navbar navbar-expand-lg navbar-light bg-dark sticky-top text-white  w-100 '>
       {/* Other header content can go here */}
-      <VentilatorMode />
+    <div className="mx-auto">
+       <VentilatorMode />
+    </div>
+     <div className="mx-auto">
       <PatientCondition setPatientCondition={setPatientCondition}/>
+     </div>
+      
     </div>
   );
 };

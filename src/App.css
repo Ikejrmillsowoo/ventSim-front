@@ -9,72 +9,10 @@
   box-shadow: 0px 0px 12px 9px rgba(0,0,0,0.9);
   -webkit-box-shadow: 0px 0px 12px 9px rgba(0,0,0,0.9);
   -moz-box-shadow: 0px 0px 12px 9px rgba(0,0,0,0.9);
-  padding: 3px 12px;
-  height: 95vh;
-  overflow: hidden; 
-  display: flex;
+  /* height: 95vh; */
+  /* overflow: hidden;  */
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-/* Headings */
-h2 {
-  color: #2c3e50;
-  margin-bottom: 24px;
-}
-
-/* Sliders and controls */
-.scenario-selector,
-input[type="range"],
-button {
-  margin: 16px 0;
-}
-
-/* Slider labels */
-label {
-  font-weight: 500;
-  margin-bottom: 8px;
-  display: block;
-}
-
-/* Feedback and status */
-.feedback-header {
-  color: #2980b9;
-  font-size: 1.1em;
-  margin-top: 24px;
-}
-
-.status-header {
-  color: #c0392b;
-  font-size: 1em;
-  margin-top: 8px;
-}
-
-/* Buttons */
-button {
-  background: #2980b9;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 24px;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-button:disabled {
-  background: #bdc3c7;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-  background: #1c5980;
-}
-
-/* Flex layout for parameter display */
-.parameter-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
+  justify-content: center; */
 }
 
