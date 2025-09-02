@@ -54,16 +54,16 @@ function App() {
   // }
 
   return (
-    <div className="App container py-4">
-      <section className='mb-2'>
+    <div className="App container">
+      <header className='header w-100 mb-4'>
       <Header setPatientCondition={setPatientCondition}/>
 
-      </section>
+      </header>
       <section className='row'>
-        <div className='col-md-6 mb-3'>
+        <div className='col-md-8 mb-3'>
       <VentilatorParams ventForm={ventForm} data={abgData}/>
       </div>
-      <div className='col-md-6 mb-3'>
+      <div className='col-md-4 mb-3'>
       <ABGDisplay abgData={abgData} />
       </div>
       </section>

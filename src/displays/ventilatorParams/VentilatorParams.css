@@ -1,0 +1,18 @@
+.ventParams {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #6e7175; ; 
+   display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px ;
+}
+.item {
+    width: 30%;
+    
+}
+.card {
+    margin: auto; 
+}

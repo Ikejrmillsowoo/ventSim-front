@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import TextDisplay from '../../components/TextDisplay'
 import defaultSettings from '../../defaultSettings.json';
+import "./VentilatorParams.css"
 /**
  * A component that receives an object of ventilator parameters and displays them.
  * @param {object} props - The component props.
@@ -8,47 +9,22 @@ import defaultSettings from '../../defaultSettings.json';
  * @param {string} [props.className] - Optional CSS class for styling the container.
  */
 function VentilatorParams({ventForm, className}) {
-//     if (!params || Object.keys(params).length === 0) {
-//     return <div className={className}>No parameters to display.</div>;
-//   }
 
-// const [ventForm, setVentForm] = React.useState({
-//     mode: '',
-//     tidalVolume: '',
-//     respiratoryRate: '',
-//     peep: '',
-//     fio2: '',
-//     inspiratoryPressure: '',
-//   });
-
-// useEffect(() => {
-//     const settings = defaultSettings.find(item => item.scenario === condition);
-//     console.log('Loaded Settings:', settings + condition
-//     );
-
-//     if (settings) {
-//       setVentForm({
-//         mode: settings.mode,
-//         tidalVolume: settings.tidalVolume ?? '',
-//         respiratoryRate: settings.respiratoryRate,
-//         peep: settings.peep,
-//         fio2: settings.fio2,
-//         inspiratoryPressure: settings.inspiratoryPressure ? settings.inspiratoryPressure : settings.tidalVolume / 50,
-//       });
-//     }
-//   }, [condition]);
 
   return (
-    <div>
-        <h2>Ventilator Parameters</h2>
+    <div className={`border rounded p-3 bg-dark text-light ${className || ''}`}>
+        <h2 className='text-center'>Ventilator Parameters</h2>
+    <div className='ventParams'>
         {Object.entries(ventForm).map(([key, value]) => (
-        <div key={key} style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 0' }}>
+        <div key={key} className='d-flex justify-content-between py-1 item' >
           {/* <span>{key}</span>
           <span>{String(value)}</span> */}
-          <TextDisplay text={`${key}: ${value}`} />
+          <TextDisplay text={`${key}: ${value}`} key={key} value={value} />
         </div>
       ))}
+      </div>
     </div>
+    
   )
 }
 

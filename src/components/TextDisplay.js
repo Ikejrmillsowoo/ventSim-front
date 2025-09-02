@@ -6,11 +6,13 @@ import React from 'react';
  * @param {string} props.text - The text to display.
  * @param {string} [props.className] - Optional CSS class for styling.
  */
-const TextDisplay = ({ text, className }) => {
+const TextDisplay = ({ text, key, value, className }) => {
+    console.log("Rendering TextDisplay with key:", key, "and value:", value);
   return (
-    <p className={className}>
-      {text}
-    </p>
+    <div className="" >
+        <h5 className="card-title">Key goes here</h5>
+        <p className="card-text">{value}</p>
+    </div>
   );
 };
 
