@@ -1,0 +1,74 @@
+[
+  {
+    "scenario": "ARDS",
+    "mode": "Volume Control",
+    "tidalVolume": 350,
+    "respiratoryRate": 24,
+    "peep": 10,
+    "fio2": 100,
+    "note": "Lung-protective strategy for poor compliance and shunt"
+  },
+  {
+    "scenario": "COPD",
+    "mode": "Volume Control",
+    "tidalVolume": 500,
+    "respiratoryRate": 12,
+    "peep": 5,
+    "fio2": 40,
+    "note": "Low rate to avoid dynamic hyperinflation and CO2 trapping"
+  },
+  {
+    "scenario": "Asthma",
+    "mode": "Volume Control",
+    "tidalVolume": 450,
+    "respiratoryRate": 10,
+    "peep": 3,
+    "fio2": 60,
+    "note": "Prevent auto-PEEP and air trapping; permissive hypercapnia acceptable"
+  },
+  {
+    "scenario": "Neuromuscular",
+    "mode": "Volume Control",
+    "tidalVolume": 400,
+    "respiratoryRate": 16,
+    "peep": 5,
+    "fio2": 40,
+    "note": "Weak muscles but normal lungs; full ventilatory support"
+  },
+  {
+    "scenario": "Sedation",
+    "mode": "Pressure Control",
+    "inspiratoryPressure": 15,
+    "respiratoryRate": 10,
+    "peep": 5,
+    "fio2": 100,
+    "note": "Full support for depressed drive from sedation or overdose"
+  },
+  {
+    "scenario": "Metabolic",
+    "mode": "Volume Control",
+    "tidalVolume": 500,
+    "respiratoryRate": 24,
+    "peep": 5,
+    "fio2": 60,
+    "note": "Support metabolic acidosis compensation by increasing RR"
+  },
+  {
+    "scenario": "PE",
+    "mode": "Volume Control",
+    "tidalVolume": 500,
+    "respiratoryRate": 16,
+    "peep": 5,
+    "fio2": 100,
+    "note": "Normal mechanics, hypoxia from dead space; oxygenation support"
+  },
+  {
+    "scenario": "Obesity",
+    "mode": "Pressure Control",
+    "inspiratoryPressure": 20,
+    "respiratoryRate": 16,
+    "peep": 8,
+    "fio2": 60,
+    "note": "Overcome chest wall resistance; higher pressure and PEEP"
+  }
+]

@@ -9,8 +9,11 @@ import Button from '../../components/Button'
 import postVentilatorSettings from '../../fetch/Fetch'
 import FeedBack from '../FeedBack'
 import ABGDisplay from '../abgDisplay/ABGDisplay'
+import defautlSettings from "../../defaultSettings.json"
 
-function VentilatorSettings() {
+
+function VentilatorSettings({setData}) {
+    const settings = defautlSettings.find(item => item.scenario === "normal");    
     const [rate, setRate] = useState(20);
     const [pressure, setPressure] = useState(20);
     const [oxygen, setOxygen] = useState(21);
@@ -19,7 +22,7 @@ function VentilatorSettings() {
     const [peep, setPeep] = useState(5); 
     const [feedback, setFeedback] = useState();
     const [status, setStatus] = useState();
-    const [abgDisplay, setAbgDisplay] = useState({});
+    // const [abgDisplay, setAbgDisplay] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +33,8 @@ function VentilatorSettings() {
             console.log(response);
             setFeedback(response.feedback);
             setStatus(response.status);
-            setAbgDisplay(response.abg);
+            setData(response.abg);
+            // setAbgDisplay(response.abg);
         } catch (error) {
             // Optionally handle error or show error message
             setFeedback("Error submitting settings");
@@ -51,7 +55,6 @@ function VentilatorSettings() {
         <PeepSlider peep={peep} setPeep={setPeep} />
         <Button onClick={handleSubmit}>Submit Changes</Button>
         <FeedBack feedback={feedback} status={status} />
-        <ABGDisplay data={abgDisplay} />
     </div>
   )
 }

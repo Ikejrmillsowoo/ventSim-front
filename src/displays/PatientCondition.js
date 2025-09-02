@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ScenarioDropdown from '../components/Dropdown';
-const PatientCondition = () => {
+const PatientCondition = ({setPatientCondition}) => {
   // Example data for scenarios. This would typically come from props or a global state.
   const [scenarios, setScenarios] = useState([
     { id: 'normal', name: 'NORMAL PATIENT' },
@@ -16,6 +16,7 @@ const PatientCondition = () => {
 
   const handleScenarioChange = (event) => {
     setSelectedScenario(event.target.value);
+    setPatientCondition(event.target.value);
     console.log("Scenario changed to:", event.target.value);
   };
 

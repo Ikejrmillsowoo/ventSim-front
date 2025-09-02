@@ -8,14 +8,16 @@ import VentilatorSettings from './displays/ventilatorSettings/VentilatorSettings
 import postVentilatorSettings from './fetch/Fetch';
 
 function App() {
+  const [condition, setPatientCondition] = useState('normal');
+  console.log("Patient condition in Header:", condition);
   const [data, setData] = useState({
-    ph: 7.4,
-    paCO2: 40,
-    paO2: 90,
-    hco3: 24,
-    saO2: '97%',
-    feedback: 'Stable',
-    status: 'Normal',
+    // ph: 7.4,
+    // paCO2: 40,
+    // paO2: 90,
+    // hco3: 24,
+    // saO2: '97%',
+    // feedback: 'Stable',
+    // status: 'Normal',
   });
 
   async function handleClick() {
@@ -26,12 +28,13 @@ function App() {
       console.error(err);
     }
   }
+
   return (
     <div className="App">
-      <Header />
-      <VentilatorParams />
-      <ABGDisplay />
-      <VentilatorSettings />
+      <Header setPatientCondition={setPatientCondition}/>
+      <VentilatorParams condition={condition} />
+      <ABGDisplay data={data} />
+      <VentilatorSettings setData={setData} />
       <Footer />
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TextDisplay from '../../components/TextDisplay'
 /**
  * A component that receives an object of ventilator parameters and displays them.
@@ -6,14 +6,21 @@ import TextDisplay from '../../components/TextDisplay'
  * @param {object} props.params - An object containing the ventilator parameters to display.
  * @param {string} [props.className] - Optional CSS class for styling the container.
  */
-function ABGDisplay() {
-    const params = {
+function ABGDisplay({data}) {
+    const [params, setParams] = useState({
         pH: 7.4,
         PaCO2: 40,
         PaO2: 90,
         HCO3: 24,
         SaO2: '97%',
-    }
+    });
+
+    useEffect(() => {
+        if (data && Object.keys(data).length > 0) {
+            setParams(data);
+        }
+    }, [data]);
+   
 
   return (
     <div>
