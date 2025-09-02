@@ -58,7 +58,7 @@ function App() {
       <Header setPatientCondition={setPatientCondition}/>
       <VentilatorParams ventForm={ventForm} data={abgData}/>
       <ABGDisplay abgData={abgData} />
-      <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} />
+      <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} ventForm={ventForm} />
       <Footer />
     </div>
   );
