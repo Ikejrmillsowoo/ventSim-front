@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import ABGDisplay from './displays/abgDisplay/ABGDisplay';
 import Footer from './displays/footer/Footer';
@@ -6,24 +6,48 @@ import Header from './displays/header/Header';
 import VentilatorParams from './displays/ventilatorParams/VentilatorParams';
 import VentilatorSettings from './displays/ventilatorSettings/VentilatorSettings';
 import postVentilatorSettings from './fetch/Fetch';
+import defaultSettings from "./defaultSettings.json"
 
 function App() {
   const [condition, setPatientCondition] = useState('normal');
-  console.log("Patient condition in Header:", condition);
-  const [data, setData] = useState({
-    // ph: 7.4,
-    // paCO2: 40,
-    // paO2: 90,
-    // hco3: 24,
-    // saO2: '97%',
-    // feedback: 'Stable',
-    // status: 'Normal',
+  const [abgData, setAbgData] = useState({
+          pH: 7.4,
+        PaCO2: 40,
+        PaO2: 90,
+        HCO3: 24,
+        SaO2: '97%',
   });
+  const [ventForm, setVentForm] = React.useState({
+      mode: '',
+      tidalVolume: '',
+      respiratoryRate: '',
+      peep: '',
+      fio2: '',
+      inspiratoryPressure: '',
+    });
+  
+  useEffect(() => {
+      const settings = defaultSettings.find(item => item.scenario === condition);
+      
+  
+      if (settings) {
+        setVentForm({
+          mode: settings.mode,
+          tidalVolume: settings.tidalVolume ?? '',
+          respiratoryRate: settings.respiratoryRate,
+          peep: settings.peep,
+          fio2: settings.fio2,
+          inspiratoryPressure: settings.inspiratoryPressure ? settings.inspiratoryPressure : settings.tidalVolume / 50,
+        });
+      }
+    }, [condition]);
+  // console.log("Patient condition in Header:", condition);
+  
 
   async function handleClick() {
     try {
       const result = await postVentilatorSettings({ RR: 20, Vt: 500, PEEP: 5 });
-      setData(result);
+      setAbgData(result);
     } catch (err) {
       console.error(err);
     }
@@ -32,9 +56,9 @@ function App() {
   return (
     <div className="App">
       <Header setPatientCondition={setPatientCondition}/>
-      <VentilatorParams condition={condition} />
-      <ABGDisplay data={data} />
-      <VentilatorSettings setData={setData} />
+      <VentilatorParams ventForm={ventForm} data={abgData}/>
+      <ABGDisplay abgData={abgData} />
+      <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} />
       <Footer />
     </div>
   );

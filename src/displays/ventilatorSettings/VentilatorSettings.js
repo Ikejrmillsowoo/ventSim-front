@@ -12,7 +12,7 @@ import ABGDisplay from '../abgDisplay/ABGDisplay'
 import defautlSettings from "../../defaultSettings.json"
 
 
-function VentilatorSettings({setData}) {
+function VentilatorSettings({setAbgData, setVentForm}) {
     const settings = defautlSettings.find(item => item.scenario === "normal");    
     const [rate, setRate] = useState(20);
     const [pressure, setPressure] = useState(20);
@@ -33,7 +33,16 @@ function VentilatorSettings({setData}) {
             console.log(response);
             setFeedback(response.feedback);
             setStatus(response.status);
-            setData(response.abg);
+            setAbgData(response.abg);
+            setVentForm({
+                mode: settings.mode,
+                tidalVolume: volume,
+                respiratoryRate: rate,
+                peep: peep,
+                fio2: oxygen,
+                inspiratoryPressure: pressure,
+                supportPressure: supportPressure,
+              });
             // setAbgDisplay(response.abg);
         } catch (error) {
             // Optionally handle error or show error message

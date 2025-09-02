@@ -1,6 +1,13 @@
-[
+[{
+    "scenario": "normal",
+    "mode": "Volume Control",
+    "tidalVolume": 500,
+    "respiratoryRate": 16,
+    "peep": 5,
+    "fio2": 100,
+    "note": "Normal lungs; full support"},
   {
-    "scenario": "ARDS",
+    "scenario": "ards",
     "mode": "Volume Control",
     "tidalVolume": 350,
     "respiratoryRate": 24,
@@ -9,7 +16,7 @@
     "note": "Lung-protective strategy for poor compliance and shunt"
   },
   {
-    "scenario": "COPD",
+    "scenario": "copd",
     "mode": "Volume Control",
     "tidalVolume": 500,
     "respiratoryRate": 12,
@@ -18,7 +25,7 @@
     "note": "Low rate to avoid dynamic hyperinflation and CO2 trapping"
   },
   {
-    "scenario": "Asthma",
+    "scenario": "asthma",
     "mode": "Volume Control",
     "tidalVolume": 450,
     "respiratoryRate": 10,
@@ -27,7 +34,7 @@
     "note": "Prevent auto-PEEP and air trapping; permissive hypercapnia acceptable"
   },
   {
-    "scenario": "Neuromuscular",
+    "scenario": "neuro",
     "mode": "Volume Control",
     "tidalVolume": 400,
     "respiratoryRate": 16,
@@ -36,7 +43,7 @@
     "note": "Weak muscles but normal lungs; full ventilatory support"
   },
   {
-    "scenario": "Sedation",
+    "scenario": "sedation",
     "mode": "Pressure Control",
     "inspiratoryPressure": 15,
     "respiratoryRate": 10,
@@ -54,7 +61,7 @@
     "note": "Support metabolic acidosis compensation by increasing RR"
   },
   {
-    "scenario": "PE",
+    "scenario": "pe",
     "mode": "Volume Control",
     "tidalVolume": 500,
     "respiratoryRate": 16,
