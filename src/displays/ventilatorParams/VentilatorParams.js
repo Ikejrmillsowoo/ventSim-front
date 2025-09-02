@@ -14,12 +14,12 @@ function VentilatorParams({ventForm, className}) {
   return (
     <div className={`border rounded p-3 bg-dark text-light ${className || ''}`}>
         <h2 className='text-center'>Ventilator Parameters</h2>
-    <div className='ventParams'>
-        {Object.entries(ventForm).map(([key, value]) => (
-        <div key={key} className='d-flex justify-content-between py-1 item' >
+    <div className='ventParams '>
+        {Object.entries(ventForm).map(([label, value]) => (
+        <div key={label} className='d-flex justify-content-between py-1 item' >
           {/* <span>{key}</span>
           <span>{String(value)}</span> */}
-          <TextDisplay text={`${key}: ${value}`} key={key} value={value} />
+          <TextDisplay label={label} value={value} />
         </div>
       ))}
       </div>

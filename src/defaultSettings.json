@@ -4,7 +4,7 @@
     "tidalVolume": 500,
     "respiratoryRate": 16,
     "peep": 5,
-    "fio2": 100,
+    "fio2": 21,
     "note": "Normal lungs; full support"},
   {
     "scenario": "ards",

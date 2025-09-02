@@ -17,7 +17,7 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
     const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
     const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
     const [oxygen, setOxygen] = useState(ventForm.fio2 || 21);
-    const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
+    // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
     const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
     const [peep, setPeep] = useState(ventForm.peep || 5); 
     const [feedback, setFeedback] = useState(); // Stores feedback from API
@@ -32,17 +32,17 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
             peep: peep,
             fio2: oxygen,
             inspiratoryPressure: pressure,
-            supportPressure: supportPressure
+            // supportPressure: supportPressure
         });
-    }, [rate, pressure, oxygen, supportPressure, volume, peep]);
+    }, [rate, pressure, oxygen, volume, peep]);
 
     // Handles form submission: sends settings to backend and updates feedback/status
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form behavior
-        console.log({ rate, pressure, oxygen, supportPressure, volume, peep }); // Debug log
+        console.log({ rate, pressure, oxygen, volume, peep }); // Debug log
         try {
             // Send POST request to backend API
-            const response = await postVentilatorSettings({ rate, pressure, oxygen, supportPressure, volume, peep });
+            const response = await postVentilatorSettings({ rate, pressure, oxygen, volume, peep });
             console.log(response); // Debug log of API response
             setFeedback(response.feedback); // Update feedback from API
             setStatus(response.status);     // Update status from API
@@ -63,7 +63,7 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
             <RespiratoryRateSlider setRate={setRate} rate={rate} />
             <InspiratoryPressureSlider pressure={pressure} setPressure={setPressure} />
             <OxygenSlider oxygen={oxygen} setOxygen={setOxygen} />
-            <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/>
+            {/* <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/> */}
             <VolumeSlider volume={volume} setVolume={setVolume} />
             <PeepSlider peep={peep} setPeep={setPeep} />
             {/* Button to submit changes */}

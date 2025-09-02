@@ -6,11 +6,10 @@ import React from 'react';
  * @param {string} props.text - The text to display.
  * @param {string} [props.className] - Optional CSS class for styling.
  */
-const TextDisplay = ({ text, key, value, className }) => {
-    console.log("Rendering TextDisplay with key:", key, "and value:", value);
+const TextDisplay = ({ label, value }) => {
   return (
-    <div className="" >
-        <h5 className="card-title">Key goes here</h5>
+    <div className="card h-100 mb-3 text-center " >
+        <h5 className="card-title" style={{ textTransform: 'uppercase' }}>{label}:</h5>
         <p className="card-text">{value}</p>
     </div>
   );

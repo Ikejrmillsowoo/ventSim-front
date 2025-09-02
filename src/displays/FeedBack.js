@@ -5,8 +5,8 @@ function FeedBack({status, feedback}) {
 
   return (
     <div>
-        <TextDisplay text={feedback} className="feedback-header" />
-        <TextDisplay text={status} className="status-header" />
+        <TextDisplay value={feedback} className="feedback-header" />
+        <TextDisplay value={status} className="status-header" />
     </div>
   )
 }

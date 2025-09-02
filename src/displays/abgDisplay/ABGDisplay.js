@@ -25,11 +25,11 @@ function ABGDisplay({abgData}) {
   return (
     <div>
          <h2>ABG Results</h2>
-        {Object.entries(abgData).map(([key, value]) => (
-        <div key={key} style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 0' }}>
+        {Object.entries(abgData).map(([label, value]) => (
+        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 0' }}>
           {/* <span>{key}</span>
           <span>{String(value)}</span> */}
-          <TextDisplay text={`${key}: ${value}`} />
+          <TextDisplay  label={label} value={value} />
         </div>
       ))}
     </div>
