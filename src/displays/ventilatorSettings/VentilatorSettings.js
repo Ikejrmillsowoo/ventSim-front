@@ -12,7 +12,7 @@ import ABGDisplay from '../abgDisplay/ABGDisplay'
 import defautlSettings from "../../defaultSettings.json"
 
 // Main ventilator settings component
-function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, setStatus}) {
+function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition}) {
     // Local state for each ventilator parameter, initialized from ventForm or default values
     const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
     const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
@@ -41,7 +41,7 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
         console.log({ rate, pressure, oxygen, volume, peep }); // Debug log
         try {
             // Send POST request to backend API
-            const response = await postVentilatorSettings({ rate, pressure, oxygen, volume, peep });
+            const response = await postVentilatorSettings({ rate, pressure, oxygen, volume, peep, condition });
             console.log(response); // Debug log of API response
             setFeedback(response.feedback); // Update feedback from API
             setStatus(response.status);     // Update status from API

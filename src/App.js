@@ -5,7 +5,6 @@ import Footer from "./displays/footer/Footer";
 import Header from "./displays/header/Header";
 import VentilatorParams from "./displays/ventilatorParams/VentilatorParams";
 import VentilatorSettings from "./displays/ventilatorSettings/VentilatorSettings";
-import postVentilatorSettings from "./fetch/Fetch";
 import defaultSettings from "./defaultSettings.json";
 
 function App() {
@@ -68,6 +67,7 @@ function App() {
           ventForm={ventForm}
           setFeedback={setFeedback}
           setStatus={setStatus}
+          condition={condition}
         />
       </section>
 
