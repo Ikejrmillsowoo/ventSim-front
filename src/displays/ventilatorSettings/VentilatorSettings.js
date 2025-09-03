@@ -12,7 +12,7 @@ import ABGDisplay from '../abgDisplay/ABGDisplay'
 import defautlSettings from "../../defaultSettings.json"
 
 // Main ventilator settings component
-function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
+function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, setStatus}) {
     // Local state for each ventilator parameter, initialized from ventForm or default values
     const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
     const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
@@ -20,8 +20,7 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
     // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
     const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
     const [peep, setPeep] = useState(ventForm.peep || 5); 
-    const [feedback, setFeedback] = useState(); // Stores feedback from API
-    const [status, setStatus] = useState();     // Stores status from API
+  
 
     // Update parent ventForm whenever any local parameter changes
     useEffect(() => {
@@ -69,7 +68,6 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm}) {
             {/* Button to submit changes */}
             <Button className='btn btn-primary mt-3' onClick={handleSubmit}>Submit Changes</Button>
             {/* Display feedback and status from API */}
-            <FeedBack feedback={feedback} status={status} />
         </div>
     )
 }

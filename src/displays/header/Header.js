@@ -1,26 +1,25 @@
-import { useState } from 'react';
-import ScenarioDropdown from '../../components/Dropdown';
-import PatientCondition from '../PatientCondition';
-import VentilatorMode from '../VentilatorMode';
-const Header = ({setPatientCondition}) => {
- 
-
+import { useState } from "react";
+import ScenarioDropdown from "../../components/Dropdown";
+import PatientCondition from "../PatientCondition";
+import VentilatorMode from "../VentilatorMode";
+const Header = ({ setPatientCondition }) => {
   return (
-    <div className='container-fluid bg-dark text-white py-3 w-100'>
+    <div className="container-fluid">
       {/* Other header content can go here */}
-      <div className="d-flex justify-content-center align-items-center mb-3">
-        <h1 className="navbar-brand mb-0 h1 text-center">Ventilator Simulation</h1>
+      {/* <div className="d-flex justify-content-center align-items-center mb-3"> */}
+      <div className="row  justify-content-center">
+        <div className="col-12 text-center">
+          <h1 className="navbar-brand mb-3">Ventilator Simulation</h1>
+        </div>
       </div>
-      <div className="d-flex justify-content-around align-items-center">
-<div className="mx-2">
-       <VentilatorMode />
-    </div>
-     <div className="mx-2">
-      <PatientCondition setPatientCondition={setPatientCondition}/>
-     </div>
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
+          <VentilatorMode />
+        </div>
+        <div className="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
+          <PatientCondition setPatientCondition={setPatientCondition} />
+        </div>
       </div>
-    
-      
     </div>
   );
 };

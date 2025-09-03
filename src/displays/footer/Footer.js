@@ -1,9 +1,9 @@
 import FeedBack from '../FeedBack'
 
-function Footer() {
+function Footer({status, feedback}) {
   return (
     <div>
-        <FeedBack />
+        <FeedBack status={status} feedback={feedback}/>
     </div>
   )
 }

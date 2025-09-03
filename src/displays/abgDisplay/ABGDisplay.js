@@ -6,7 +6,7 @@ import TextDisplay from '../../components/TextDisplay'
  * @param {object} props.params - An object containing the ventilator parameters to display.
  * @param {string} [props.className] - Optional CSS class for styling the container.
  */
-function ABGDisplay({abgData}) {
+function ABGDisplay({abgData, className}) {
     // const [params, setParams] = useState({
     //     pH: 7.4,
     //     PaCO2: 40,
@@ -23,15 +23,17 @@ function ABGDisplay({abgData}) {
    
 
   return (
-    <div>
-         <h2>ABG Results</h2>
+    <div className={`border rounded p-3 bg-dark text-light ${className || ''}`}>
+         <h2 className='text-center'>ABG Results</h2>
+         <div className='ventParams '>
         {Object.entries(abgData).map(([label, value]) => (
-        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 0' }}>
+        <div key={label} className='d-flex justify-content-between py-1 item'>
           {/* <span>{key}</span>
           <span>{String(value)}</span> */}
           <TextDisplay  label={label} value={value} />
         </div>
       ))}
+      </div>
     </div>
   )
 }
