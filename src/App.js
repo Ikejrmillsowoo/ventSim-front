@@ -43,6 +43,7 @@ function App() {
           ? settings.inspiratoryPressure
           : settings.tidalVolume / 50,
       });
+      setAbgData(settings.abg);
     }
   }, [condition]);
   // console.log("Patient condition in Header:", condition);

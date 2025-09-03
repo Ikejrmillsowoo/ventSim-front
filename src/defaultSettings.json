@@ -1,11 +1,21 @@
-[{
+[
+  {
     "scenario": "normal",
     "mode": "Volume Control",
     "tidalVolume": 500,
     "respiratoryRate": 16,
     "peep": 5,
     "fio2": 21,
-    "note": "Normal lungs; full support"},
+    "note": "Normal lungs; full support",
+    "abg": {
+      "pH": 7.40,
+      "paCO2": 40,
+      "paO2": 95,
+      "hco3": 24,
+      "saO2": 97,
+      "be": 0
+    }
+  },
   {
     "scenario": "ards",
     "mode": "Volume Control",
@@ -13,7 +23,15 @@
     "respiratoryRate": 24,
     "peep": 10,
     "fio2": 100,
-    "note": "Lung-protective strategy for poor compliance and shunt"
+    "note": "Lung-protective strategy for poor compliance and shunt",
+    "abg": {
+      "pH": 7.34,
+      "paCO2": 46,
+      "paO2": 70,
+      "hco3": 24,
+      "saO2": 92,
+      "be": -2
+    }
   },
   {
     "scenario": "copd",
@@ -22,7 +40,15 @@
     "respiratoryRate": 12,
     "peep": 5,
     "fio2": 40,
-    "note": "Low rate to avoid dynamic hyperinflation and CO2 trapping"
+    "note": "Low rate to avoid dynamic hyperinflation and CO2 trapping",
+    "abg": {
+      "pH": 7.36,
+      "paCO2": 55,
+      "paO2": 68,
+      "hco3": 30,
+      "saO2": 90,
+      "be": 4
+    }
   },
   {
     "scenario": "asthma",
@@ -31,7 +57,15 @@
     "respiratoryRate": 10,
     "peep": 3,
     "fio2": 60,
-    "note": "Prevent auto-PEEP and air trapping; permissive hypercapnia acceptable"
+    "note": "Prevent auto-PEEP and air trapping; permissive hypercapnia acceptable",
+    "abg": {
+      "pH": 7.30,
+      "paCO2": 60,
+      "paO2": 75,
+      "hco3": 26,
+      "saO2": 92,
+      "be": -2
+    }
   },
   {
     "scenario": "neuro",
@@ -40,7 +74,15 @@
     "respiratoryRate": 16,
     "peep": 5,
     "fio2": 40,
-    "note": "Weak muscles but normal lungs; full ventilatory support"
+    "note": "Weak muscles but normal lungs; full ventilatory support",
+    "abg": {
+      "pH": 7.38,
+      "paCO2": 42,
+      "paO2": 90,
+      "hco3": 24,
+      "saO2": 95,
+      "be": 0
+    }
   },
   {
     "scenario": "sedation",
@@ -49,7 +91,15 @@
     "respiratoryRate": 10,
     "peep": 5,
     "fio2": 100,
-    "note": "Full support for depressed drive from sedation or overdose"
+    "note": "Full support for depressed drive from sedation or overdose",
+    "abg": {
+      "pH": 7.28,
+      "paCO2": 58,
+      "paO2": 90,
+      "hco3": 25,
+      "saO2": 96,
+      "be": -1
+    }
   },
   {
     "scenario": "Metabolic",
@@ -58,7 +108,15 @@
     "respiratoryRate": 24,
     "peep": 5,
     "fio2": 60,
-    "note": "Support metabolic acidosis compensation by increasing RR"
+    "note": "Support metabolic acidosis compensation by increasing RR",
+    "abg": {
+      "pH": 7.32,
+      "paCO2": 30,
+      "paO2": 92,
+      "hco3": 18,
+      "saO2": 96,
+      "be": -5
+    }
   },
   {
     "scenario": "pe",
@@ -67,7 +125,15 @@
     "respiratoryRate": 16,
     "peep": 5,
     "fio2": 100,
-    "note": "Normal mechanics, hypoxia from dead space; oxygenation support"
+    "note": "Normal mechanics, hypoxia from dead space; oxygenation support",
+    "abg": {
+      "pH": 7.42,
+      "paCO2": 36,
+      "paO2": 68,
+      "hco3": 24,
+      "saO2": 91,
+      "be": 0
+    }
   },
   {
     "scenario": "Obesity",
@@ -76,6 +142,14 @@
     "respiratoryRate": 16,
     "peep": 8,
     "fio2": 60,
-    "note": "Overcome chest wall resistance; higher pressure and PEEP"
+    "note": "Overcome chest wall resistance; higher pressure and PEEP",
+    "abg": {
+      "pH": 7.38,
+      "paCO2": 45,
+      "paO2": 85,
+      "hco3": 25,
+      "saO2": 94,
+      "be": 1
+    }
   }
 ]

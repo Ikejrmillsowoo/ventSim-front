@@ -20,7 +20,8 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
     // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
     const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
     const [peep, setPeep] = useState(ventForm.peep || 5); 
-  
+  console.log("rate", rate);
+  console.log(ventForm);
 
     // Update parent ventForm whenever any local parameter changes
     useEffect(() => {
@@ -46,6 +47,15 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
             setFeedback(response.feedback); // Update feedback from API
             setStatus(response.status);     // Update status from API
             setAbgData(response.abg);       // Update ABG data in parent
+            setVentForm({   
+            mode: ventForm.mode,
+            tidalVolume: volume,
+            respiratoryRate: rate,
+            peep: peep,
+            fio2: oxygen,
+            inspiratoryPressure: pressure,
+            // supportPressure: supportPressure
+        });
         } catch (error) {
             // Handle errors gracefully
             setFeedback("Error submitting settings");
@@ -59,12 +69,12 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
         <div>
             <h2>Ventilator Settings</h2>
             {/* Sliders for each ventilator parameter */}
-            <RespiratoryRateSlider setRate={setRate} rate={rate} />
-            <InspiratoryPressureSlider pressure={pressure} setPressure={setPressure} />
-            <OxygenSlider oxygen={oxygen} setOxygen={setOxygen} />
+            <RespiratoryRateSlider setRate={setRate} rate={ventForm.respiratoryRate} />
+            <InspiratoryPressureSlider pressure={ventForm.inspiratoryPressure} setPressure={setPressure} />
+            <OxygenSlider oxygen={ventForm.fio2} setOxygen={setOxygen} />
             {/* <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/> */}
-            <VolumeSlider volume={volume} setVolume={setVolume} />
-            <PeepSlider peep={peep} setPeep={setPeep} />
+            <VolumeSlider volume={ventForm.tidalVolume} setVolume={setVolume} />
+            <PeepSlider peep={ventForm.peep} setPeep={setPeep} />
             {/* Button to submit changes */}
             <Button className='btn btn-primary mt-3' onClick={handleSubmit}>Submit Changes</Button>
             {/* Display feedback and status from API */}
