@@ -20,8 +20,6 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
     // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
     const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
     const [peep, setPeep] = useState(ventForm.peep || 5); 
-  console.log("rate", rate);
-  console.log(ventForm);
 
     // Update parent ventForm whenever any local parameter changes
     useEffect(() => {
