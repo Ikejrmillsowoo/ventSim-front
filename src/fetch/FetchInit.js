@@ -1,16 +1,6 @@
-/**
- * Posts ventilator settings to the simulation API and returns the simulation data.
- *
- * @param {object} settings - An object containing the ventilator settings to be simulated.
- * For example: { RR: 20, Vt: 500, PEEP: 5, ... }
- * @returns {Promise<object>} A promise that resolves to the JSON response from the server.
- * @throws {Error} Throws an error if the network request fails or the server responds with an error.
- */
-const postVentilatorSettings = async ({stateId, rate, pressure, oxygen, supportPressure, volume, peep, condition}) => {
-     console.log("Submitting settings with stateId:", stateId);
-    const API_URL = 'http://localhost:8080/api/simulate/simulate';
+const postInitVentilatorSettings = async ({rate, pressure, oxygen, supportPressure, volume, peep, condition}) => {
+  const API_URL = 'http://localhost:8080/api/simulate/init';
     const settings = { 
-        stateId: stateId,
         respiratoryRate: rate, 
         tidalVolume: volume, 
         peep: peep,
@@ -44,4 +34,4 @@ const postVentilatorSettings = async ({stateId, rate, pressure, oxygen, supportP
   }
 };
 
-export default postVentilatorSettings;
+export default postInitVentilatorSettings;

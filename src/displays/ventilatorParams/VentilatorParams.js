@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
 import TextDisplay from '../../components/TextDisplay'
-import defaultSettings from '../../defaultSettings.json';
 import "./VentilatorParams.css"
 /**
  * A component that receives an object of ventilator parameters and displays them.

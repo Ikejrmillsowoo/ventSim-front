@@ -6,6 +6,7 @@ import Header from "./displays/header/Header";
 import VentilatorParams from "./displays/ventilatorParams/VentilatorParams";
 import VentilatorSettings from "./displays/ventilatorSettings/VentilatorSettings";
 import defaultSettings from "./defaultSettings.json";
+import postInitVentilatorSettings from "./fetch/FetchInit";
 
 function App() {
   const [condition, setPatientCondition] = useState("normal");
@@ -26,6 +27,8 @@ function App() {
   });
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
+  const [stateId, setStateId] = useState(); // Stores stateId from API  
+     console.log("Submitting settings with stateId:", stateId);
 
   useEffect(() => {
     const settings = defaultSettings.find(
@@ -44,6 +47,30 @@ function App() {
           : settings.tidalVolume / 50,
       });
       setAbgData(settings.abg);
+      postInitVentilatorSettings({
+        rate: settings.respiratoryRate,
+        pressure: settings.inspiratoryPressure
+          ? settings.inspiratoryPressure
+          : settings.tidalVolume / 50,
+        oxygen: settings.fio2,
+        supportPressure: settings.supportPressure ?? 0,
+        volume: settings.tidalVolume,
+        peep: settings.peep,
+        condition: settings.scenario,
+        abg: settings.abg,
+      })
+        .then((response) => {
+          console.log("Initial settings response:", response);
+          setFeedback(response.feedback); // Update feedback from API
+          setStatus(response.status); // Update status from API
+          setAbgData(response.abg); // Update ABG data in parent
+          setStateId(response.stateId); // Update stateId from API
+        })
+        .catch((error) => {
+          console.error("Error posting initial settings:", error);
+          setFeedback("Error submitting initial settings");
+          setStatus("Error");
+        });
     }
   }, [condition]);
   // console.log("Patient condition in Header:", condition);
@@ -69,6 +96,7 @@ function App() {
           setFeedback={setFeedback}
           setStatus={setStatus}
           condition={condition}
+          stateId={stateId}
         />
       </section>
 

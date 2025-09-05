@@ -7,12 +7,10 @@ import PeepSlider from '../sliders/PeepSlider'
 import VolumeSlider from '../sliders/VolumeSlider'
 import Button from '../../components/Button'
 import postVentilatorSettings from '../../fetch/Fetch'
-import FeedBack from '../FeedBack'
-import ABGDisplay from '../abgDisplay/ABGDisplay'
-import defautlSettings from "../../defaultSettings.json"
+
 
 // Main ventilator settings component
-function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition}) {
+function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition}) {
     // Local state for each ventilator parameter, initialized from ventForm or default values
     const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
     const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
@@ -33,7 +31,7 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
             inspiratoryPressure: pressure,
             // supportPressure: supportPressure
         });
-    }, [rate, pressure, oxygen, volume, peep]);
+    }, [rate, pressure, oxygen, volume, peep, setVentForm, ventForm.mode]); // Removed supportPressure from dependencies
 
     // Handles form submission: sends settings to backend and updates feedback/status
     const handleSubmit = async (e) => {
@@ -41,7 +39,8 @@ function VentilatorSettings({setAbgData, setVentForm, ventForm, setFeedback, set
         console.log({ rate, pressure, oxygen, volume, peep }); // Debug log
         try {
             // Send POST request to backend API
-            const response = await postVentilatorSettings({ rate, pressure, oxygen, volume, peep, condition });
+            console.log("Submitting settings with stateId:", stateId);
+            const response = await postVentilatorSettings({stateId, rate, pressure, oxygen, volume, peep, condition });
             console.log(response); // Debug log of API response
             setFeedback(response.feedback); // Update feedback from API
             setStatus(response.status);     // Update status from API
