@@ -7,7 +7,6 @@
  * @throws {Error} Throws an error if the network request fails or the server responds with an error.
  */
 const postVentilatorSettings = async ({stateId, rate, pressure, oxygen, supportPressure, volume, peep, condition}) => {
-     console.log("Submitting settings with stateId:", stateId);
     const API_URL = 'http://localhost:8080/api/simulate/simulate';
     const settings = { 
         stateId: stateId,

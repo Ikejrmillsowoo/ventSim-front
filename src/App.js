@@ -17,7 +17,7 @@ function App() {
     HCO3: 24,
     SaO2: "97%",
   });
-  const [ventForm, setVentForm] = React.useState({
+  const [ventForm, setVentForm] = useState({
     mode: "",
     tidalVolume: "",
     respiratoryRate: "",
@@ -29,7 +29,6 @@ function App() {
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API  
 
-  console.log("VentForm in App:", ventForm);
   useEffect(() => {
     const settings = defaultSettings.find(
       (item) => item.scenario === condition

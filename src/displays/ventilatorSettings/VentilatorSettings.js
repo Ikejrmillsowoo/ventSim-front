@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import RespiratoryRateSlider from '../sliders/RespiratoryRateSlider'
 import InspiratoryPressureSlider from '../sliders/InspiratoryPressureSlider'
 import OxygenSlider from '../sliders/OxygenSlider'
-import SupportPressureSlider from '../sliders/SupportPressureSlider'
 import PeepSlider from '../sliders/PeepSlider'
 import VolumeSlider from '../sliders/VolumeSlider'
 import Button from '../../components/Button'
@@ -31,7 +30,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
             inspiratoryPressure: pressure,
             // supportPressure: supportPressure
         });
-    }, [rate, pressure, oxygen, volume, peep, setVentForm, ventForm.mode]); // Removed supportPressure from dependencies
+    }, [rate, pressure, oxygen, volume, peep]); // Removed supportPressure from dependencies
 
     // Handles form submission: sends settings to backend and updates feedback/status
     const handleSubmit = async (e) => {
@@ -44,15 +43,15 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
             setFeedback(response.feedback); // Update feedback from API
             setStatus(response.status);     // Update status from API
             setAbgData(response.abg);       // Update ABG data in parent
-            setVentForm({   
-            mode: ventForm.mode,
-            tidalVolume: volume,
-            respiratoryRate: rate,
-            peep: peep,
-            fio2: oxygen,
-            inspiratoryPressure: pressure,
-            // supportPressure: supportPressure
-        });
+        //     setVentForm({   
+        //     mode: ventForm.mode,
+        //     tidalVolume: volume,
+        //     respiratoryRate: rate,
+        //     peep: peep,
+        //     fio2: oxygen,
+        //     inspiratoryPressure: pressure,
+        //     // supportPressure: supportPressure
+        // });
         } catch (error) {
             // Handle errors gracefully
             setFeedback("Error submitting settings");
