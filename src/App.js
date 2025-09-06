@@ -28,8 +28,8 @@ function App() {
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API  
-     console.log("Submitting settings with stateId:", stateId);
 
+  console.log("VentForm in App:", ventForm);
   useEffect(() => {
     const settings = defaultSettings.find(
       (item) => item.scenario === condition

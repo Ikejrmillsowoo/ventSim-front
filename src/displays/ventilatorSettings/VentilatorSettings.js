@@ -39,7 +39,6 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
         console.log({ rate, pressure, oxygen, volume, peep }); // Debug log
         try {
             // Send POST request to backend API
-            console.log("Submitting settings with stateId:", stateId);
             const response = await postVentilatorSettings({stateId, rate, pressure, oxygen, volume, peep, condition });
             console.log(response); // Debug log of API response
             setFeedback(response.feedback); // Update feedback from API

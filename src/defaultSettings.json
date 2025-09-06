@@ -22,12 +22,12 @@
     "tidalVolume": 350,
     "respiratoryRate": 24,
     "peep": 10,
-    "fio2": 100,
+    "fio2": 40,
     "note": "Lung-protective strategy for poor compliance and shunt",
     "abg": {
       "pH": 7.34,
       "paCO2": 46,
-      "paO2": 70,
+      "paO2": 40,
       "hco3": 24,
       "saO2": 92,
       "be": -2
