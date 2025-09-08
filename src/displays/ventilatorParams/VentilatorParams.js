@@ -15,8 +15,6 @@ function VentilatorParams({ventForm, className}) {
     <div className='ventParams '>
         {Object.entries(ventForm).map(([label, value]) => (
         <div key={label} className='d-flex justify-content-between py-1 item' >
-          {/* <span>{key}</span>
-          <span>{String(value)}</span> */}
           <TextDisplay label={label} value={value} />
         </div>
       ))}

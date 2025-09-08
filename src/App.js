@@ -28,11 +28,14 @@ function App() {
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API  
+  const [mode, setMode] = useState();
 
   useEffect(() => {
     const settings = defaultSettings.find(
       (item) => item.scenario === condition
     );
+
+    
 
     if (settings) {
       setVentForm({

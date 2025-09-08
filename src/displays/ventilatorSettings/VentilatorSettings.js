@@ -17,6 +17,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
     // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
     const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
     const [peep, setPeep] = useState(ventForm.peep || 5); 
+    
 
 
     // Update parent ventForm whenever any local parameter changes
@@ -44,15 +45,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
             setFeedback(response.feedback); // Update feedback from API
             setStatus(response.status);     // Update status from API
             setAbgData(response.abg);       // Update ABG data in parent
-        //     setVentForm({   
-        //     mode: ventForm.mode,
-        //     tidalVolume: volume,
-        //     respiratoryRate: rate,
-        //     peep: peep,
-        //     fio2: oxygen,
-        //     inspiratoryPressure: pressure,
-        //     // supportPressure: supportPressure
-        // });
+ 
         } catch (error) {
             // Handle errors gracefully
             setFeedback("Error submitting settings");

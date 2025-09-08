@@ -8,7 +8,7 @@ const postInitVentilatorSettings = async ({rate, pressure, oxygen, supportPressu
         fio2: oxygen,
         inspiratoryPressure: pressure,
         scenario: condition,
-        mode: "volume Control",
+        mode: "Volume Control",
         weight: 70,  
      }; // Example settings; replace with actual data as needed
 
