@@ -32,6 +32,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
         });
     }, [rate, pressure, oxygen, volume, peep]); // Removed supportPressure from dependencies
 
+    console.log("VentForm in VentilatorSettings changing:", ventForm);
     // Handles form submission: sends settings to backend and updates feedback/status
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form behavior
@@ -66,10 +67,10 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
             <h2>Ventilator Settings</h2>
             {/* Sliders for each ventilator parameter */}
             <RespiratoryRateSlider setRate={setRate} rate={ventForm.respiratoryRate} />
-            <InspiratoryPressureSlider pressure={ventForm.inspiratoryPressure} setPressure={setPressure} />
+            <InspiratoryPressureSlider pressure={ventForm.inspiratoryPressure} setPressure={setPressure} mode={ventForm.mode} />
             <OxygenSlider oxygen={ventForm.fio2} setOxygen={setOxygen} />
             {/* <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/> */}
-            <VolumeSlider volume={ventForm.tidalVolume} setVolume={setVolume} />
+            <VolumeSlider volume={ventForm.tidalVolume} setVolume={setVolume}  />
             <PeepSlider peep={ventForm.peep} setPeep={setPeep} />
             {/* Button to submit changes */}
             <Button className='btn btn-primary mt-3' onClick={handleSubmit}>Submit Changes</Button>
