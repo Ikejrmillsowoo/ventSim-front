@@ -3,7 +3,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #6e7175; ; 
+    background-color: #6e7175;
    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -11,6 +11,8 @@
 }
 .item {
     width: 30%;
+    background-color: #6e7175
+
     
 }
 .card {

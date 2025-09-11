@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Slider from "../../components/Slider";
 
 function RespiratoryRateSlider({setRate, rate}) {

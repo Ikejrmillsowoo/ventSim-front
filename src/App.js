@@ -9,7 +9,7 @@ import defaultSettings from "./defaultSettings.json";
 import postInitVentilatorSettings from "./fetch/FetchInit";
 
 function App() {
-  const [condition, setPatientCondition] = useState("normal");
+  const [condition, setPatientCondition] = useState();
   const [abgData, setAbgData] = useState({
     pH: 7.4,
     PaCO2: 40,
@@ -72,9 +72,9 @@ function App() {
           setFeedback("Error submitting initial settings");
           setStatus("Error");
         });
-        console.log("i run only once on load or condition change  ");
     }
   }, [condition]);
+  console.log("VentForm in App:", ventForm);
   // console.log("Patient condition in Header:", condition);
 
   return (
