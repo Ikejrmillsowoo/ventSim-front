@@ -8,7 +8,7 @@ const Header = ({ setPatientCondition }) => {
       {/* <div className="d-flex justify-content-center align-items-center mb-3"> */}
       <div className="row  justify-content-center">
         <div className="col-12 text-center">
-          <h1 className="navbar-brand mb-3 logo">VENTISIM</h1>
+          <h1 className="navbar-brand mb-3"><span className="logo">VENTISIM</span></h1>
         </div>
       </div>
       <div className="row justify-content-center">
