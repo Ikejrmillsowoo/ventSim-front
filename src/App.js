@@ -28,7 +28,6 @@ function App() {
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API  
-  const [mode, setMode] = useState();
 
   useEffect(() => {
     const settings = defaultSettings.find(
@@ -73,6 +72,7 @@ function App() {
           setFeedback("Error submitting initial settings");
           setStatus("Error");
         });
+        console.log("i run only once on load or condition change  ");
     }
   }, [condition]);
   // console.log("Patient condition in Header:", condition);

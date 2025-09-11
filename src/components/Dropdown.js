@@ -1,10 +1,10 @@
 import React from 'react';
 
 // A reusable dropdown component for selecting menu options
-const ScenarioDropdown = ({ scenarios, selectedScenario, onScenarioChange }) => {
+const ScenarioDropdown = ({ scenarios, selectedScenario, onScenarioChange, label }) => {
   return (
     <div className="scenario-selector">
-      <label htmlFor="scenario-select">Choose a scenario:</label>
+      <label htmlFor="scenario-select">Set a {label}:</label>
       <select id="scenario-select" value={selectedScenario} onChange={onScenarioChange}>
         {scenarios.map((scenario) => (
           <option key={scenario.id} value={scenario.id}>

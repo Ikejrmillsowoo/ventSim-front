@@ -33,7 +33,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
         });
     }, [rate, pressure, oxygen, volume, peep]); // Removed supportPressure from dependencies
 
-    console.log("VentForm in VentilatorSettings changing:", ventForm);
+    // console.log("VentForm in VentilatorSettings changing:", ventForm);
     // Handles form submission: sends settings to backend and updates feedback/status
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevents default form behavior

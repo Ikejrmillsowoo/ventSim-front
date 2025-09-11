@@ -20,6 +20,7 @@ const VentilatorMode = () => {
     <div>
       {/* Other header content can go here */}
       <ScenarioDropdown
+        label="ventilator mode"
         scenarios={scenarios}
         selectedScenario={selectedScenario}
         onScenarioChange={handleScenarioChange}
