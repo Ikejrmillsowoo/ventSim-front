@@ -9,19 +9,19 @@ import postVentilatorSettings from '../../fetch/Fetch'
 
 
 // Main ventilator settings component
-function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition}) {
+function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition, rate, pressure, oxygen, volume, peep, supportPressure, setRate, setPressure, setOxygen, setVolume, setPeep}) {
     // Local state for each ventilator parameter, initialized from ventForm or default values
-    const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
-    const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
-    const [oxygen, setOxygen] = useState(ventForm.fio2 || 21);
+    // const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
+    // const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
+    // const [oxygen, setOxygen] = useState(ventForm.fio2 || 21);
     // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
-    const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
-    const [peep, setPeep] = useState(ventForm.peep || 5); 
-    
-
+    // const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
+    // const [peep, setPeep] = useState(ventForm.peep || 5); 
 
     // Update parent ventForm whenever any local parameter changes
-    useEffect(() => {
+
+     useEffect(() => {
+        
         setVentForm({   
             mode: ventForm.mode,
             tidalVolume: volume,
@@ -31,7 +31,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
             inspiratoryPressure: pressure,
             // supportPressure: supportPressure
         });
-    }, [rate, pressure, oxygen, volume, peep]); // Removed supportPressure from dependencies
+    }, [rate, pressure, oxygen, peep, volume]); 
 
     // console.log("VentForm in VentilatorSettings changing:", ventForm);
     // Handles form submission: sends settings to backend and updates feedback/status

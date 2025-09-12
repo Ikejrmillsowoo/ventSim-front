@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * A slider component to adjust a numerical setting within a range.
  * @param {object} props - The component props.
@@ -13,7 +11,7 @@ import React from 'react';
  */
 const Slider = ({ label, min, max, step = 1, value, onChange, className }) => {
   return (
-    <div className={className}>
+    <div className={`vertical-slider ${className || ''}`}>
       <label htmlFor={`${label}-slider`}>
         {label}: {value}
       </label>

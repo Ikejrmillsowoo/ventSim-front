@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Slider from '../../components/Slider'
+import React, { useState } from "react";
+import Slider from "../../components/Slider";
 
-function SupportPressureSlider({supportPressure, setSupportPressure}) {
+function SupportPressureSlider({ supportPressure, setSupportPressure }) {
   // const [supportPersure, setSupportPressure] = useState(10);
 
   const handleSupportPressureChange = (event) => {
@@ -9,9 +9,16 @@ function SupportPressureSlider({supportPressure, setSupportPressure}) {
   };
   return (
     <div>
-      <Slider label="PS" min={0} max={50} step={1} value={supportPressure} onChange={handleSupportPressureChange} />
+      <Slider
+        label="PS"
+        min={0}
+        max={50}
+        step={1}
+        value={supportPressure}
+        onChange={handleSupportPressureChange}
+      />
     </div>
-  )
+  );
 }
 
-export default SupportPressureSlider
+export default SupportPressureSlider;

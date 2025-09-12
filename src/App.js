@@ -9,7 +9,7 @@ import defaultSettings from "./defaultSettings.json";
 import postInitVentilatorSettings from "./fetch/FetchInit";
 
 function App() {
-  const [condition, setPatientCondition] = useState();
+  const [condition, setPatientCondition] = useState("normal");
   const [abgData, setAbgData] = useState({
     pH: 7.4,
     PaCO2: 40,
@@ -17,36 +17,53 @@ function App() {
     HCO3: 24,
     SaO2: "97%",
   });
-  const [ventForm, setVentForm] = useState({
-    mode: "",
-    tidalVolume: "",
-    respiratoryRate: "",
-    peep: "",
-    fio2: "",
-    inspiratoryPressure: "",
-  });
+    const [ventForm, setVentForm] = useState({
+    mode: "Volume Control",
+    tidalVolume: 500,
+    respiratoryRate: 16,
+    peep: 5,
+    fio2: 21,
+    inspiratoryPressure: 10,
+    // supportPressure: 0
+  }); // Stores ventilator settings
+  const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
+  const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
+  const [oxygen, setOxygen] = useState(ventForm.fio2 || 21);
+  // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
+  const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
+  const [peep, setPeep] = useState(ventForm.peep || 5);
+
+
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
-  const [stateId, setStateId] = useState(); // Stores stateId from API  
+  const [stateId, setStateId] = useState(); // Stores stateId from API
 
   useEffect(() => {
     const settings = defaultSettings.find(
       (item) => item.scenario === condition
     );
 
-    
-
     if (settings) {
-      setVentForm({
-        mode: settings.mode,
-        tidalVolume: settings.tidalVolume ?? "",
-        respiratoryRate: settings.respiratoryRate,
-        peep: settings.peep,
-        fio2: settings.fio2,
-        inspiratoryPressure: settings.inspiratoryPressure
+      setRate(settings.respiratoryRate);
+      setPressure(
+        settings.inspiratoryPressure
           ? settings.inspiratoryPressure
-          : settings.tidalVolume / 50,
-      });
+          : settings.tidalVolume / 50
+      );
+      setOxygen(settings.fio2);
+      setPeep(settings.peep);
+      setVolume(settings.tidalVolume);
+      // setSupportPressure(settings.supportPressure ?? 0);
+      // setVentForm({
+      //   mode: settings.mode,
+      //   tidalVolume: settings.tidalVolume,
+      //   respiratoryRate: settings.respiratoryRate,
+      //   peep: settings.peep,
+      //   fio2: settings.fio2,
+      //   inspiratoryPressure: settings.inspiratoryPressure
+      //     ? settings.inspiratoryPressure
+      //     : settings.tidalVolume / 50,
+      // });
       setAbgData(settings.abg);
       postInitVentilatorSettings({
         rate: settings.respiratoryRate,
@@ -92,6 +109,17 @@ function App() {
       </section>
       <section className="mb-4">
         <VentilatorSettings
+          setRate={setRate}
+          rate={rate}
+          setPressure={setPressure}
+          pressure={pressure}
+          setOxygen={setOxygen}
+          oxygen={oxygen}
+          peep={peep}
+          setPeep={setPeep}
+          volume={volume}
+          setVolume={setVolume}
+          // setSupportPressure={setSupportPressure}
           setAbgData={setAbgData}
           setVentForm={setVentForm}
           ventForm={ventForm}
@@ -101,12 +129,7 @@ function App() {
           stateId={stateId}
         />
       </section>
-
-      {/* <Header setPatientCondition={setPatientCondition}/> */}
-      {/* <VentilatorParams ventForm={ventForm} data={abgData}/>
-      <ABGDisplay abgData={abgData} />
-      <VentilatorSettings setAbgData={setAbgData} setVentForm={setVentForm} ventForm={ventForm} /> */}
-      <Footer feedback={feedback} status={status}/>
+      <Footer feedback={feedback} status={status} />
     </div>
   );
 }
