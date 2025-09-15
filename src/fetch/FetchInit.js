@@ -1,4 +1,4 @@
-const postInitVentilatorSettings = async ({rate, pressure, oxygen, supportPressure, volume, peep, condition}) => {
+const postInitVentilatorSettings = async ({mode, rate, pressure, oxygen, supportPressure, volume, peep, weight, condition}) => {
   const API_URL = 'http://localhost:8080/api/simulate/init';
     const settings = { 
         respiratoryRate: rate, 
@@ -8,8 +8,8 @@ const postInitVentilatorSettings = async ({rate, pressure, oxygen, supportPressu
         fio2: oxygen,
         inspiratoryPressure: pressure,
         scenario: condition,
-        mode: "Volume Control",
-        weight: 70,  
+        mode: mode,
+        weight: weight,  
      }; // Example settings; replace with actual data as needed
 
   try {

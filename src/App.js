@@ -11,6 +11,7 @@ import postInitVentilatorSettings from "./fetch/FetchInit";
 function App() {
   const [condition, setPatientCondition] = useState("normal");
   const [ventilatorMode, setVentilatorMode] = useState("Volume Control");
+  const [weight, setWeight] = useState("70");
   const [abgData, setAbgData] = useState({
     pH: 7.4,
     PaCO2: 40,
@@ -67,6 +68,7 @@ function App() {
         peep: settings.peep,
         condition: settings.scenario,
         mode: settings.mode,
+        weight: weight,
         abg: settings.abg,
       })
         .then((response) => {
@@ -89,7 +91,7 @@ function App() {
   return (
     <div className="App container">
       <header className="header sticky-top text-white bg-dark py-3 mb-4">
-        <Header setPatientCondition={setPatientCondition} setVentilatorMode={setVentilatorMode} />
+        <Header weight={weight} setWeight={setWeight} setPatientCondition={setPatientCondition} setVentilatorMode={setVentilatorMode} />
       </header>
       <section className="row">
         <div className="col-md-8 mb-3">
@@ -112,6 +114,7 @@ function App() {
           volume={volume}
           setVolume={setVolume}
           ventilatorMode={ventilatorMode}
+          weight={weight}
           // setSupportPressure={setSupportPressure}
           setAbgData={setAbgData}
           setVentForm={setVentForm}

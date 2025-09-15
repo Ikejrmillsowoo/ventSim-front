@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import ScenarioDropdown from '../components/Dropdown';
-const PatientWeight = () => {
-  const [weight, setWeight] = useState("70");
+const PatientWeight = ({setWeight, weight}) => {
+//   const [weight, setWeight] = useState("70");
 
   const handleWeightChange = (event) => {
     setWeight(event.target.value);
