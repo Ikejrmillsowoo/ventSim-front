@@ -20,7 +20,7 @@ const postVentilatorSettings = async ({stateId, rate, pressure, oxygen, supportP
         mode: mode,
         weight: weight,  
      }; // Example settings; replace with actual data as needed
-
+console.log("Posting settings:", settings);
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
