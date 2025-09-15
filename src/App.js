@@ -10,6 +10,7 @@ import postInitVentilatorSettings from "./fetch/FetchInit";
 
 function App() {
   const [condition, setPatientCondition] = useState("normal");
+  const [ventilatorMode, setVentilatorMode] = useState("Volume Control");
   const [abgData, setAbgData] = useState({
     pH: 7.4,
     PaCO2: 40,
@@ -18,7 +19,7 @@ function App() {
     SaO2: "97%",
   });
     const [ventForm, setVentForm] = useState({
-    mode: "Volume Control",
+    mode: ventilatorMode,
     tidalVolume: 500,
     respiratoryRate: 16,
     peep: 5,
@@ -52,18 +53,8 @@ function App() {
       );
       setOxygen(settings.fio2);
       setPeep(settings.peep);
-      setVolume(settings.tidalVolume);
-      // setSupportPressure(settings.supportPressure ?? 0);
-      // setVentForm({
-      //   mode: settings.mode,
-      //   tidalVolume: settings.tidalVolume,
-      //   respiratoryRate: settings.respiratoryRate,
-      //   peep: settings.peep,
-      //   fio2: settings.fio2,
-      //   inspiratoryPressure: settings.inspiratoryPressure
-      //     ? settings.inspiratoryPressure
-      //     : settings.tidalVolume / 50,
-      // });
+      setVolume(settings.tidalVolume? settings.tidalVolume : settings.inspiratoryPressure * 50);
+      setVentilatorMode(settings.mode);
       setAbgData(settings.abg);
       postInitVentilatorSettings({
         rate: settings.respiratoryRate,
@@ -72,9 +63,10 @@ function App() {
           : settings.tidalVolume / 50,
         oxygen: settings.fio2,
         supportPressure: settings.supportPressure ?? 0,
-        volume: settings.tidalVolume,
+        volume: settings.tidalVolume? settings.tidalVolume : settings.inspiratoryPressure * 50,
         peep: settings.peep,
         condition: settings.scenario,
+        mode: settings.mode,
         abg: settings.abg,
       })
         .then((response) => {
@@ -97,7 +89,7 @@ function App() {
   return (
     <div className="App container">
       <header className="header sticky-top text-white bg-dark py-3 mb-4">
-        <Header setPatientCondition={setPatientCondition} />
+        <Header setPatientCondition={setPatientCondition} setVentilatorMode={setVentilatorMode} />
       </header>
       <section className="row">
         <div className="col-md-8 mb-3">
@@ -119,6 +111,7 @@ function App() {
           setPeep={setPeep}
           volume={volume}
           setVolume={setVolume}
+          ventilatorMode={ventilatorMode}
           // setSupportPressure={setSupportPressure}
           setAbgData={setAbgData}
           setVentForm={setVentForm}

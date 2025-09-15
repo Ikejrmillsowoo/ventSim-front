@@ -9,7 +9,7 @@ import postVentilatorSettings from '../../fetch/Fetch'
 
 
 // Main ventilator settings component
-function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition, rate, pressure, oxygen, volume, peep, supportPressure, setRate, setPressure, setOxygen, setVolume, setPeep}) {
+function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeedback, setStatus, condition, rate, pressure, oxygen, volume, peep, ventilatorMode, setRate, setPressure, setOxygen, setVolume, setPeep}) {
     // Local state for each ventilator parameter, initialized from ventForm or default values
     // const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
     // const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
@@ -23,7 +23,7 @@ function VentilatorSettings({stateId, setAbgData, setVentForm, ventForm, setFeed
      useEffect(() => {
         
         setVentForm({   
-            mode: ventForm.mode,
+            mode: ventilatorMode,
             tidalVolume: volume,
             respiratoryRate: rate,
             peep: peep,

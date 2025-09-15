@@ -1,7 +1,8 @@
 import PatientCondition from "../PatientCondition";
+import PatientWeight from "../PatientWeight";
 import VentilatorMode from "../VentilatorMode";
 import './header.css';
-const Header = ({ setPatientCondition }) => {
+const Header = ({ setPatientCondition, setVentilatorMode }) => {
   return (
     <div className="container-fluid">
       {/* Other header content can go here */}
@@ -12,10 +13,13 @@ const Header = ({ setPatientCondition }) => {
         </div>
       </div>
       <div className="row justify-content-center">
-        <div className="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
-          <VentilatorMode />
+        <div className="col-12 col-md-4 mb-2 mb-md-0 d-flex justify-content-center">
+          <VentilatorMode setVentilatorMode={setVentilatorMode}/>
         </div>
-        <div className="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
+        <div className="col-12 col-md-4 mb-2 mb-md-0 d-flex justify-content-center">
+          <PatientWeight/>
+        </div>
+        <div className="col-12 col-md-4 mb-2 mb-md-0 d-flex justify-content-center">
           <PatientCondition setPatientCondition={setPatientCondition} />
         </div>
       </div>
