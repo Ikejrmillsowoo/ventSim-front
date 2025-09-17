@@ -10,7 +10,7 @@ import postInitVentilatorSettings from "./fetch/FetchInit";
 
 function App() {
   const [condition, setPatientCondition] = useState("normal");
-  const [ventilatorMode, setVentilatorMode] = useState("Volume Control");
+  const [ventilatorMode, setVentilatorMode] = useState("VC");
   const [weight, setWeight] = useState("70");
   const [abgData, setAbgData] = useState({
     pH: 7.4,
@@ -19,6 +19,7 @@ function App() {
     HCO3: 24,
     SaO2: "97%",
   });
+
     const [ventForm, setVentForm] = useState({
     mode: ventilatorMode,
     tidalVolume: 500,
