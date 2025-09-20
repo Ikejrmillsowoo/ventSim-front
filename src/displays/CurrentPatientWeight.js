@@ -1,10 +1,9 @@
 import { useState } from 'react';
 const PatientWeight = ({setWeight, weight}) => {
-//   const [weight, setWeight] = useState("70");
 
   const handleWeightChange = (event) => {
     setWeight(event.target.value);
-    console.log("Weight changed to:", event.target.value);
+    // console.log("Weight changed to:", event.target.value);
   };
 
   return (

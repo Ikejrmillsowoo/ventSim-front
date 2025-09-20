@@ -57,7 +57,7 @@ function VentilatorSettings({
         volume,
         peep,
         condition,
-        mode,
+        ventilatorMode,
         weight,
       });
       console.log(response); // Debug log of API response
