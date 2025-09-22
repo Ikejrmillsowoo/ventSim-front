@@ -86,7 +86,7 @@ function App() {
         });
     }
   }, [condition]);
-  console.log("VentForm in App:", ventForm);
+  // console.log("VentForm in App:", ventForm);
   // console.log("Patient condition in Header:", condition);
 
   return (

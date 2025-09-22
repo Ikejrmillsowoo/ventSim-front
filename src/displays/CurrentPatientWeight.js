@@ -16,7 +16,7 @@ const PatientWeight = ({setWeight, weight}) => {
         value={weight}
         onChange={handleWeightChange}
         placeholder="Enter weight"
-        style={{ width: "120px", marginLeft: "8px" }}
+        // style={{ width: "120px", marginLeft: "8px" }}
       />
     </div>
   );

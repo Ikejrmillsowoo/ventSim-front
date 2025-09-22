@@ -17,7 +17,7 @@ const PatientCondition = ({setPatientCondition}) => {
   const handleScenarioChange = (event) => {
     setSelectedScenario(event.target.value);
     setPatientCondition(event.target.value);
-    console.log("Scenario changed to:", event.target.value);
+    // console.log("Scenario changed to:", event.target.value);
   };
 
   return (

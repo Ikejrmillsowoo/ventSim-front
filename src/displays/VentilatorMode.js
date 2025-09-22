@@ -15,7 +15,7 @@ const VentilatorMode = ({setVentilatorMode}) => {
   const handleModeChange = (event) => {
     setSelectedMode(event.target.value);
     setVentilatorMode(event.target.value);
-    console.log("Mode changed to:", event.target.value);
+    // console.log("Mode changed to:", event.target.value);
   };
 
   return (
