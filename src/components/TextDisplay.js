@@ -33,7 +33,7 @@ const TextDisplay = ({ label, value }) => {
       ? "Mode"
       : label;
   return (
-    <div className="card h-100 mb-3 text-center card-color" id="card-color">
+    <div className="card h-100 mb-3 text-center" id="card-color">
       <h5 className="card-title cardTitleText">
         {updateLabel ? updateLabel : " "}
       </h5>

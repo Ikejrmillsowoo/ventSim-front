@@ -75,7 +75,7 @@ function VentilatorSettings({
   // Render sliders for each parameter, submit button, and feedback display
   return (
     <div>
-      <h2>Ventilator Settings</h2>
+      <h2 className="text-light">Ventilator Settings</h2>
       {/* Sliders for each ventilator parameter */}
       <RespiratoryRateSlider
         setRate={setRate}

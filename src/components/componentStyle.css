@@ -9,15 +9,21 @@
     /* font-weight: bold; */
   text-transform: uppercase;
 }
+
+.card-text {
+  font-size: 1.8rem;
+}
 .labelHeader {
   font-size: 1.5rem;
   /* font-weight: bold; */
   margin-bottom: 4px;
   display: block;
+  color: white;
 }
 
 #scenario-select {
   font-size: 1.2rem;
+  font-weight: bold;
   padding: 6px;
   border-radius: 4px;
 }
