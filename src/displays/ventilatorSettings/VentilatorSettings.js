@@ -92,7 +92,7 @@ function VentilatorSettings({
       <PeepSlider peep={ventForm.peep} setPeep={setPeep} />
       {/* Button to submit changes */}
       <Button className="btn btn-primary mt-3" onClick={handleSubmit}>
-        Submit Changes
+        <h1 id='btn-main'>Submit Changes</h1>
       </Button>
       {/* Display feedback and status from API */}
     </div>

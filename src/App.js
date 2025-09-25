@@ -91,10 +91,10 @@ function App() {
 
   return (
     <div className="App container">
-      <header className="header sticky-top text-white bg-dark py-3 mb-3">
+      <header className="header sticky-top text-white bg-dark py-3 mb-5">
         <Header weight={weight} setWeight={setWeight} setPatientCondition={setPatientCondition} setVentilatorMode={setVentilatorMode} />
       </header>
-      <section className="row">
+      <section className="row ">
         <div className="col-md-8 mb-1">
           <VentilatorParams ventForm={ventForm} data={abgData} />
         </div>
