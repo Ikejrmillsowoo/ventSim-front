@@ -8,7 +8,7 @@ const PatientWeight = ({setWeight, weight}) => {
 
   return (
     <div>
-      <label htmlFor="patient-weight">Enter Patient Weight (kg):</label>
+      <label htmlFor="patient-weight" className='labelHeader'>Enter Patient Weight (kg):</label>
       <input
         id="patient-weight"
         type="number"

@@ -3,11 +3,12 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #6e7175; ; 
+    background-color: rgb(44, 51, 60); ; 
    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 10px ;
+    font-size: 1.8rem;
 }
 .item {
     width: 30%;

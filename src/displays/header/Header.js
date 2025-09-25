@@ -14,7 +14,7 @@ const Header = ({
       {/* <div className="d-flex justify-content-center align-items-center mb-3"> */}
       <div className="row  justify-content-center">
         <div className="col-12 text-center">
-          <h1 className="navbar-brand mb-3">
+          <h1 className="navbar-brand mb-1">
             <span className="logo">VENTISIM</span>
           </h1>
         </div>
@@ -25,7 +25,7 @@ const Header = ({
             <VentilatorMode setVentilatorMode={setVentilatorMode} />
           </div>
         </div>
-        <div className="col-12 col-md-4 mb-2 mb-md-0 d-flex justify-content-center">
+        <div className="col-12 col-md-3 mb-2 mb-md-0 d-flex justify-content-center">
           <div className="control-wrapper">
             <CurrentPatientWeight weight={weight} setWeight={setWeight} />
           </div>

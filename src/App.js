@@ -91,18 +91,18 @@ function App() {
 
   return (
     <div className="App container">
-      <header className="header sticky-top text-white bg-dark py-3 mb-4">
+      <header className="header sticky-top text-white bg-dark py-3 mb-3">
         <Header weight={weight} setWeight={setWeight} setPatientCondition={setPatientCondition} setVentilatorMode={setVentilatorMode} />
       </header>
       <section className="row">
-        <div className="col-md-8 mb-3">
+        <div className="col-md-8 mb-1">
           <VentilatorParams ventForm={ventForm} data={abgData} />
         </div>
-        <div className="col-md-4 mb-3">
+        <div className="col-md-4 mb-1">
           <ABGDisplay abgData={abgData} />
         </div>
       </section>
-      <section className="mb-4">
+      <section className="mb-2">
         <VentilatorSettings
           setRate={setRate}
           rate={rate}

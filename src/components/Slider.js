@@ -12,8 +12,9 @@
 const Slider = ({ label, min, max, step = 1, value, onChange, className }) => {
   return (
     <div className={`vertical-slider ${className || ''}`}>
-      <label htmlFor={`${label}-slider`}>
-        {label}: {value}
+      <label htmlFor={`${label}-slider`} className="labelHeader">
+        {label}
+        {/* : {value} */}
       </label>
       <input
         type="range"

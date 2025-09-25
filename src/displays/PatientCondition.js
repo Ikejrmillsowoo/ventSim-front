@@ -24,7 +24,7 @@ const PatientCondition = ({setPatientCondition}) => {
     <div>
       {/* Other header content can go here */}
       <ScenarioDropdown
-        label="patient condition"
+        label="Patient Condition"
         scenarios={scenarios}
         selectedScenario={selectedScenario}
         onScenarioChange={handleScenarioChange}
