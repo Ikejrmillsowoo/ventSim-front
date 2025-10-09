@@ -58,6 +58,7 @@ function App() {
       setVolume(settings.tidalVolume? settings.tidalVolume : settings.inspiratoryPressure * 50);
       setVentilatorMode(settings.mode);
       setAbgData(settings.abg);
+      console.log("Default settings loaded:", settings);
       postInitVentilatorSettings({
         rate: settings.respiratoryRate,
         pressure: settings.inspiratoryPressure
