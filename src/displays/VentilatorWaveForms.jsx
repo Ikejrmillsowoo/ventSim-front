@@ -139,7 +139,7 @@ export default function VentilatorWaveforms({
   return (
     <div className="w-full space-y-6">
       {/* Volume vs Time */}
-      <ChartPanel title="Volume vs Time (mL)" height={panelH}>
+      <ChartPanel title="Volume vs Time (mL)" height={panelH} >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={series} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -154,7 +154,7 @@ export default function VentilatorWaveforms({
       </ChartPanel>
 
       {/* Pressure vs Time */}
-      <ChartPanel title="Pressure vs Time (cmH₂O)" height={panelH}>
+      <ChartPanel title="Pressure vs Time (cmH₂O)" height={panelH} >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={series} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -169,7 +169,7 @@ export default function VentilatorWaveforms({
       </ChartPanel>
 
       {/* Flow–Volume loop (last breath) */}
-      <ChartPanel title="Flow–Volume Loop (last breath)" height={panelH}>
+      <ChartPanel title="Flow–Volume Loop (last breath)" height={panelH} >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={loopData} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -187,9 +187,9 @@ export default function VentilatorWaveforms({
 }
 
 /** Utility chart wrapper */
-function ChartPanel({ title, height, children }) {
+function ChartPanel({ title, height, children, color = "white" }) {
   return (
-    <div className="rounded-2xl shadow-sm border p-3" style={{ height }}>
+    <div className="rounded-2xl shadow-sm border p-3" style={{ height, color }}>
       <div className="text-sm font-semibold mb-2 opacity-80">{title}</div>
       {children}
     </div>

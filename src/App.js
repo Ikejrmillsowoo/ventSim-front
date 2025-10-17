@@ -7,6 +7,7 @@ import VentilatorParams from "./displays/ventilatorParams/VentilatorParams";
 import VentilatorSettings from "./displays/ventilatorSettings/VentilatorSettings";
 import defaultSettings from "./defaultSettings.json";
 import postInitVentilatorSettings from "./fetch/FetchInit";
+import VentilatorWaveforms from "./displays/VentilatorWaveForms";
 
 function App() {
   const [condition, setPatientCondition] = useState("normal");
@@ -20,7 +21,7 @@ function App() {
     SaO2: "97%",
   });
 
-    const [ventForm, setVentForm] = useState({
+  const [ventForm, setVentForm] = useState({
     mode: ventilatorMode,
     tidalVolume: 500,
     respiratoryRate: 16,
@@ -35,7 +36,6 @@ function App() {
   // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
   const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
   const [peep, setPeep] = useState(ventForm.peep || 5);
-
 
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
@@ -55,7 +55,11 @@ function App() {
       );
       setOxygen(settings.fio2);
       setPeep(settings.peep);
-      setVolume(settings.tidalVolume? settings.tidalVolume : settings.inspiratoryPressure * 50);
+      setVolume(
+        settings.tidalVolume
+          ? settings.tidalVolume
+          : settings.inspiratoryPressure * 50
+      );
       setVentilatorMode(settings.mode);
       setAbgData(settings.abg);
       console.log("Default settings loaded:", settings);
@@ -66,7 +70,9 @@ function App() {
           : settings.tidalVolume / 50,
         oxygen: settings.fio2,
         supportPressure: settings.supportPressure ?? 0,
-        volume: settings.tidalVolume? settings.tidalVolume : settings.inspiratoryPressure * 50,
+        volume: settings.tidalVolume
+          ? settings.tidalVolume
+          : settings.inspiratoryPressure * 50,
         peep: settings.peep,
         condition: settings.scenario,
         mode: settings.mode,
@@ -93,7 +99,12 @@ function App() {
   return (
     <div className="App container">
       <header className="header sticky-top text-white bg-dark py-3 mb-5">
-        <Header weight={weight} setWeight={setWeight} setPatientCondition={setPatientCondition} setVentilatorMode={setVentilatorMode} />
+        <Header
+          weight={weight}
+          setWeight={setWeight}
+          setPatientCondition={setPatientCondition}
+          setVentilatorMode={setVentilatorMode}
+        />
       </header>
       <section className="row ">
         <div className="col-md-8 mb-1">
@@ -103,7 +114,25 @@ function App() {
           <ABGDisplay abgData={abgData} />
         </div>
       </section>
-      <section className="mb-2">
+      <section className="row">
+        <div className="col-md-8 mb-1">
+        <VentilatorWaveforms
+          mode="Pressure Control" // or "Volume Control", "PSV"
+          respiratoryRate={rate}
+          tidalVolume={volume} // used in VC
+          peep={peep}
+          inspiratoryPressure={pressure} // Δ above PEEP (PC)
+          supportPressure={12} // PS above PEEP (PSV)
+          compliance={50} // mL/cmH2O
+          resistance={10} // cmH2O/L/s
+          ieRatio="1:2"
+          height={540}
+        />
+        </div>
+
+      {/* </section>
+      <section className="mb-2"> */}
+      <div className="col-md-4 mb-1">
         <VentilatorSettings
           setRate={setRate}
           rate={rate}
@@ -126,6 +155,7 @@ function App() {
           condition={condition}
           stateId={stateId}
         />
+        </div>
       </section>
       <Footer feedback={feedback} status={status} />
     </div>
