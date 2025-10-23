@@ -10,6 +10,7 @@ import {
   Legend,
   ReferenceLine,
 } from "recharts";
+import Footer from "./footer/Footer";
 
 /**
  * VentilatorWaveforms
@@ -47,10 +48,15 @@ export default function VentilatorWaveforms({
   resistance = 10, // cmH2O/L/s
   ieRatio = "1:2",
   height = 540,
+  status,
+  feedback,
 }) {
   // Parse mode & IE
   const parsedMode = useMemo(() => normalizeMode(mode), [mode]);
-  const { Ti, Te, T } = useMemo(() => computeTiming(respiratoryRate, ieRatio), [respiratoryRate, ieRatio]);
+  const { Ti, Te, T } = useMemo(
+    () => computeTiming(respiratoryRate, ieRatio),
+    [respiratoryRate, ieRatio]
+  );
 
   // Engine settings
   const dt = 0.05; // 50 ms per frame (~20 FPS)
@@ -73,7 +79,17 @@ export default function VentilatorWaveforms({
     loopCollectorRef.current = [];
     startRef.current = perfNowS();
     prevTmodRef.current = 0;
-  }, [parsedMode, respiratoryRate, tidalVolume, peep, inspiratoryPressure, supportPressure, compliance, resistance, ieRatio]);
+  }, [
+    parsedMode,
+    respiratoryRate,
+    tidalVolume,
+    peep,
+    inspiratoryPressure,
+    supportPressure,
+    compliance,
+    resistance,
+    ieRatio,
+  ]);
 
   // Simulation loop
   useEffect(() => {
@@ -102,11 +118,15 @@ export default function VentilatorWaveforms({
       });
 
       // Build new point
-      const tDisplay = Math.max(0, Math.min(60, tElapsed));
+      const tDisplay = tElapsed % 60; // rolling 60s window
       const point = { t: tDisplay, volume, pressure, flow };
 
       // Update rolling series (max 60s)
       setSeries((prev) => {
+        if (tDisplay < (prev[prev.length - 1]?.t || 0)) {
+          // Time wrapped, start new cycle
+          return [point];
+        }
         const next = [...prev, point];
         if (next.length > maxPoints) next.shift();
         return next;
@@ -132,44 +152,87 @@ export default function VentilatorWaveforms({
       mounted = false;
       if (animRef.current) clearTimeout(animRef.current);
     };
-  }, [parsedMode, Ti, Te, T, tidalVolume, peep, inspiratoryPressure, supportPressure, compliance, resistance, dt, maxPoints]);
+  }, [
+    parsedMode,
+    Ti,
+    Te,
+    T,
+    tidalVolume,
+    peep,
+    inspiratoryPressure,
+    supportPressure,
+    compliance,
+    resistance,
+    dt,
+    maxPoints,
+  ]);
 
   const panelH = Math.max(160, Math.floor(height / 3));
 
   return (
     <div className="w-full space-y-6">
       {/* Volume vs Time */}
-      <ChartPanel title="Volume vs Time (mL)" height={panelH} >
+      <ChartPanel title="Volume vs Time (mL)" height={panelH}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={series} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
+          <LineChart
+            data={series}
+            margin={{ top: 10, right: 20, bottom: 10, left: 0 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="t" type="number" domain={[0, 60]} tickFormatter={(v) => `${Math.floor(v)}s`} />
+            <XAxis
+              dataKey="t"
+              type="number"
+              domain={[0, 60]}
+              tickFormatter={(v) => `${Math.floor(v)}s`}
+            />
             <YAxis domain={[0, autoMax(series, "volume", 800)]} />
-            <Tooltip formatter={(v, n) => [fmtNum(v), n]} labelFormatter={(l) => `${fmtNum(l)} s`} />
+            <Tooltip content={<WaveformTooltip />} />
             <Legend />
             <ReferenceLine y={0} strokeDasharray="3 3" />
-            <Line isAnimationActive={false} type="monotone" dataKey="volume" name="Volume (mL)" dot={false} />
+            <Line
+              isAnimationActive={false}
+              type="monotone"
+              dataKey="volume"
+              name="Volume (mL)"
+              dot={false}
+            />
           </LineChart>
         </ResponsiveContainer>
       </ChartPanel>
 
       {/* Pressure vs Time */}
-      <ChartPanel title="Pressure vs Time (cmH₂O)" height={panelH} >
+      <ChartPanel title="Pressure vs Time (cmH₂O)" height={panelH}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={series} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
+          <LineChart
+            data={series}
+            margin={{ top: 10, right: 20, bottom: 10, left: 0 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="t" type="number" domain={[0, 60]} tickFormatter={(v) => `${Math.floor(v)}s`} />
+            <XAxis
+              dataKey="t"
+              type="number"
+              domain={[0, 60]}
+              tickFormatter={(v) => `${Math.floor(v)}s`}
+            />
             <YAxis domain={[0, autoMax(series, "pressure", 40)]} />
-            <Tooltip formatter={(v, n) => [fmtNum(v), n]} labelFormatter={(l) => `${fmtNum(l)} s`} />
+            <Tooltip content={<WaveformTooltip />} />
             <Legend />
             <ReferenceLine y={peep} strokeDasharray="4 2" label="PEEP" />
-            <Line isAnimationActive={false} type="monotone" dataKey="pressure" name="Pressure (cmH₂O)" dot={false} />
+            <Line
+              isAnimationActive={false}
+              type="monotone"
+              dataKey="pressure"
+              name="Pressure (cmH₂O)"
+              dot={false}
+            />
           </LineChart>
         </ResponsiveContainer>
       </ChartPanel>
 
+      <Footer status={status} feedback={feedback} />
+
       {/* Flow–Volume loop (last breath) */}
-      <ChartPanel title="Flow–Volume Loop (last breath)" height={panelH} >
+      {/* <ChartPanel title="Flow–Volume Loop (last breath)" height={panelH} >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={loopData} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -181,7 +244,7 @@ export default function VentilatorWaveforms({
             <Line isAnimationActive={false} type="monotone" dataKey="flow" name="Flow (L/s)" dot={false} xAxisId={0} yAxisId={0} />
           </LineChart>
         </ResponsiveContainer>
-      </ChartPanel>
+      </ChartPanel> */}
     </div>
   );
 }
@@ -198,7 +261,9 @@ function ChartPanel({ title, height, children, color = "white" }) {
 
 /** Math / physiology helpers */
 function normalizeMode(mode) {
-  const m = String(mode || "").toLowerCase().replace(/\s+/g, "");
+  const m = String(mode || "")
+    .toLowerCase()
+    .replace(/\s+/g, "");
   if (m === "vc" || m === "volumecontrol") return "VC";
   if (m === "pc" || m === "pressurecontrol") return "PC";
   if (m === "psv" || m === "pressuresupport") return "PSV";
@@ -217,10 +282,17 @@ function computeTiming(rr, ie = "1:2") {
 }
 
 function computeWaveformsAtTime({
-  mode, tmod, Ti, Te, T,
-  vt_ml, peep_cmH2O,
-  pinsp_delta_cmH2O, psv_cmH2O,
-  compliance_ml_per_cmH2O, resistance_cmH2O_per_Lps,
+  mode,
+  tmod,
+  Ti,
+  Te,
+  T,
+  vt_ml,
+  peep_cmH2O,
+  pinsp_delta_cmH2O,
+  psv_cmH2O,
+  compliance_ml_per_cmH2O,
+  resistance_cmH2O_per_Lps,
 }) {
   const Cml = Math.max(8, compliance_ml_per_cmH2O);
   const R = Math.max(1, resistance_cmH2O_per_Lps);
@@ -235,8 +307,8 @@ function computeWaveformsAtTime({
     const Vt = Math.max(100, vt_ml);
     if (tmod <= Ti) {
       // constant inspiratory flow
-      flow_Lps = (Vt / 1000) / Ti;
-      volume_ml = (Vt * (tmod / Ti));
+      flow_Lps = Vt / 1000 / Ti;
+      volume_ml = Vt * (tmod / Ti);
     } else {
       const tex = tmod - Ti;
       const Vinit = Vt;
@@ -244,11 +316,10 @@ function computeWaveformsAtTime({
       volume_ml = vL * 1000;
       flow_Lps = -(Vinit / 1000) * (1 / tau) * Math.exp(-tex / tau);
     }
-    const elastic = (volume_ml / Cml); // cmH2O
-    const resistive = (flow_Lps * R);
+    const elastic = volume_ml / Cml; // cmH2O
+    const resistive = flow_Lps * R;
     pressure_cmH2O = Math.max(peep_cmH2O, peep_cmH2O + elastic + resistive);
-  }
-  else if (mode === "PC") {
+  } else if (mode === "PC") {
     // Pressure Control
     const Pdelta = Math.max(0, Number(pinsp_delta_cmH2O) || 0);
     const Vt = Math.max(100, Pdelta * Cml); // expected plateau Vt
@@ -261,16 +332,18 @@ function computeWaveformsAtTime({
     } else {
       // passive expiration
       const tex = tmod - Ti;
-      const vLend = (Vt / 1000); // volume at end-inspiration (L)
+      const vLend = Vt / 1000; // volume at end-inspiration (L)
       const vL = vLend * Math.exp(-tex / tau);
       volume_ml = vL * 1000;
       flow_Lps = -vLend * (1 / tau) * Math.exp(-tex / tau);
-      const elastic = (volume_ml / Cml);
-      const resistive = (flow_Lps * R);
-      pressure_cmH2O = Math.max(peep_cmH2O, Math.min(peep_cmH2O + Pdelta, peep_cmH2O + elastic + resistive));
+      const elastic = volume_ml / Cml;
+      const resistive = flow_Lps * R;
+      pressure_cmH2O = Math.max(
+        peep_cmH2O,
+        Math.min(peep_cmH2O + Pdelta, peep_cmH2O + elastic + resistive)
+      );
     }
-  }
-  else {
+  } else {
     // PSV (Pressure Support Ventilation)
     const PS = Math.max(0, Number(psv_cmH2O) || 0);
     const Vt = Math.max(100, PS * Cml);
@@ -281,13 +354,16 @@ function computeWaveformsAtTime({
       pressure_cmH2O = peep_cmH2O + PS; // simplified square during support
     } else {
       const tex = tmod - Ti;
-      const vLend = (Vt / 1000);
+      const vLend = Vt / 1000;
       const vL = vLend * Math.exp(-tex / tau);
       volume_ml = vL * 1000;
       flow_Lps = -vLend * (1 / tau) * Math.exp(-tex / tau);
-      const elastic = (volume_ml / Cml);
-      const resistive = (flow_Lps * R);
-      pressure_cmH2O = Math.max(peep_cmH2O, Math.min(peep_cmH2O + PS, peep_cmH2O + elastic + resistive));
+      const elastic = volume_ml / Cml;
+      const resistive = flow_Lps * R;
+      pressure_cmH2O = Math.max(
+        peep_cmH2O,
+        Math.min(peep_cmH2O + PS, peep_cmH2O + elastic + resistive)
+      );
     }
   }
 
@@ -300,20 +376,62 @@ function computeWaveformsAtTime({
 }
 
 // --- utils ---
-function perfNowS() { return performance.now() / 1000; }
-function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-function fmtNum(v) { return Number(v).toFixed(2); }
+function perfNowS() {
+  return performance.now() / 1000;
+}
+function clamp(v, lo, hi) {
+  return Math.max(lo, Math.min(hi, v));
+}
+function fmtNum(v) {
+  return Number(v).toFixed(2);
+}
 function autoMax(arr, key, fallback) {
   if (!arr || arr.length === 0) return fallback;
-  const m = Math.max(...arr.map((d) => (Number.isFinite(d[key]) ? d[key] : -Infinity)));
+  const m = Math.max(
+    ...arr.map((d) => (Number.isFinite(d[key]) ? d[key] : -Infinity))
+  );
   if (!Number.isFinite(m)) return fallback;
   const pad = Math.max(5, Math.abs(m) * 0.1);
   return Math.ceil((m + pad) / 5) * 5;
 }
 function autoMin(arr, key, fallback) {
   if (!arr || arr.length === 0) return fallback;
-  const m = Math.min(...arr.map((d) => (Number.isFinite(d[key]) ? d[key] : Infinity)));
+  const m = Math.min(
+    ...arr.map((d) => (Number.isFinite(d[key]) ? d[key] : Infinity))
+  );
   if (!Number.isFinite(m)) return fallback;
   const pad = Math.max(1, Math.abs(m) * 0.1);
   return Math.floor((m - pad) / 1) * 1;
+}
+
+function WaveformTooltip({ active, payload, label }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  // The current point (we stored t, volume, pressure, flow on each datum)
+  const p = payload[0]?.payload ?? {};
+  return (
+    <div className="rounded-xl border bg-black p-2 shadow-md text-sm">
+      <div className="font-semibold mb-1">t = {label.toFixed(2)} s</div>
+      <div className="flex gap-4">
+        {"volume" in p && (
+          <div>
+            <div className="opacity-60">Volume</div>
+            <div>{Math.round(p.volume)} mL</div>
+          </div>
+        )}
+        {"pressure" in p && (
+          <div>
+            <div className="opacity-60">Pressure</div>
+            <div>{p.pressure.toFixed(1)} cmH₂O</div>
+          </div>
+        )}
+        {"flow" in p && (
+          <div>
+            <div className="opacity-60">Flow</div>
+            <div>{p.flow.toFixed(2)} L/s</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

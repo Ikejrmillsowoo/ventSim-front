@@ -36,6 +36,7 @@ function App() {
   // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
   const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
   const [peep, setPeep] = useState(ventForm.peep || 5);
+  const [submitSettings, setSubmitSettings] = useState();
 
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
@@ -97,7 +98,7 @@ function App() {
   // console.log("Patient condition in Header:", condition);
 
   return (
-    <div className="App container">
+    <div className="App ">
       <header className="header sticky-top text-white bg-dark py-3 mb-5">
         <Header
           weight={weight}
@@ -127,6 +128,8 @@ function App() {
           resistance={10} // cmH2O/L/s
           ieRatio="1:2"
           height={540}
+          status={status}
+          feedback={feedback}
         />
         </div>
 
@@ -151,13 +154,15 @@ function App() {
           setVentForm={setVentForm}
           ventForm={ventForm}
           setFeedback={setFeedback}
+          feedback={feedback}
           setStatus={setStatus}
+          status={status}
           condition={condition}
           stateId={stateId}
         />
         </div>
       </section>
-      <Footer feedback={feedback} status={status} />
+      {/* <Footer feedback={feedback} status={status} submitSettings={submitSettings} /> */}
     </div>
   );
 }

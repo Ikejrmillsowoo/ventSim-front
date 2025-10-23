@@ -6,6 +6,7 @@ import PeepSlider from "../sliders/PeepSlider";
 import VolumeSlider from "../sliders/VolumeSlider";
 import Button from "../../components/Button";
 import postVentilatorSettings from "../../fetch/Fetch";
+import Footer from "../footer/Footer";
 
 // Main ventilator settings component
 function VentilatorSettings({
@@ -29,6 +30,8 @@ function VentilatorSettings({
   setVolume,
   setPeep,
   weight,
+  status,
+  feedback,
 }) {
   useEffect(() => {
     setVentForm({
@@ -46,7 +49,7 @@ function VentilatorSettings({
   // Handles form submission: sends settings to backend and updates feedback/status
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents default form behavior
-    console.log({ rate, pressure, oxygen, volume, peep , ventilatorMode}); // Debug log
+    console.log({ rate, pressure, oxygen, volume, peep, ventilatorMode }); // Debug log
     try {
       // Send POST request to backend API
       const response = await postVentilatorSettings({
@@ -90,11 +93,13 @@ function VentilatorSettings({
       {/* <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/> */}
       <VolumeSlider volume={ventForm.tidalVolume} setVolume={setVolume} />
       <PeepSlider peep={ventForm.peep} setPeep={setPeep} />
-      {/* Button to submit changes */}
-      <Button className="btn btn-primary mt-3" onClick={handleSubmit}>
-        <h1 id='btn-main'>Submit Changes</h1>
-      </Button>
-      {/* Display feedback and status from API */}
+
+      
+        {/* Button to submit changes */}
+        <Button className="btn btn-primary mt-3" onClick={handleSubmit}>
+          <h1 id="btn-main">Submit Changes</h1>
+        </Button>
+        {/* Display feedback and status from API */}
     </div>
   );
 }

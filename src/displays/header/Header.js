@@ -15,7 +15,7 @@ const Header = ({
       <div className="row  justify-content-center">
         <div className="col-12 text-center">
           <h1 className="navbar-brand mb-1">
-            <span className="logo">VENTISIM</span>
+            <span className="logo">VENTI-LAB</span>
           </h1>
         </div>
       </div>
