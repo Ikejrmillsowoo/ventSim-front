@@ -96,7 +96,7 @@ function VentilatorSettings({
 
       
         {/* Button to submit changes */}
-        <Button className="btn btn-primary mt-3" onClick={handleSubmit}>
+        <Button className="btn mt-3" onClick={handleSubmit}>
           <h1 id="btn-main">Submit Changes</h1>
         </Button>
         {/* Display feedback and status from API */}

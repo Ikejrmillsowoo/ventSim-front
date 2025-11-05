@@ -135,7 +135,7 @@ function App() {
 
       {/* </section>
       <section className="mb-2"> */}
-      <div className="col-md-4 mb-1">
+      <div className="col-md-4 mb-1" style={ {height: "100"}}>
         <VentilatorSettings
           setRate={setRate}
           rate={rate}
