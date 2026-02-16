@@ -99,7 +99,7 @@ function App() {
 
   return (
     <div className="App ">
-      <header className="header sticky-top text-white bg-dark py-3 mb-5">
+      <header className="header sticky-top text-white bg-dark py-1 mb-1">
         <Header
           weight={weight}
           setWeight={setWeight}
@@ -135,7 +135,7 @@ function App() {
 
       {/* </section>
       <section className="mb-2"> */}
-      <div className="col-md-4 mb-1" style={ {height: "100"}}>
+      <div className="col-md-4 mb-1">
         <VentilatorSettings
           setRate={setRate}
           rate={rate}

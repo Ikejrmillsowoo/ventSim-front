@@ -10,7 +10,7 @@ function VentilatorParams({ventForm, className}) {
 
 
   return (
-    <div className={`border rounded p-3 bg-dark text-light ${className || ''}`}>
+    <div className={`border rounded p-1 bg-dark text-light ${className || ''}`}>
         <h2 className='text-center'>Ventilator Parameters</h2>
     <div className='ventParams '>
         {Object.entries(ventForm).map(([label, value]) => (

@@ -5,8 +5,6 @@
 }
 
 .carsdTitleText {
-  /* font-size: 13rem; */
-    /* font-weight: bold; */
   text-transform: uppercase;
 }
 
@@ -53,6 +51,14 @@ option {
   padding: 6px;
   border-radius: 4px;
 }
+
+.set-space {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
 
 
 

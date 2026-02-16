@@ -11,11 +11,13 @@
  */
 const Slider = ({ label, min, max, step = 1, value, onChange, className }) => {
   return (
-    <div className={`vertical-slider ${className || ''}`}>
+    <div className={`vertical-slider ${className || ''} set-space`} >
+      <div className="col-4">
       <label htmlFor={`${label}-slider`} className="labelHeader">
-        {label}
-        {/* : {value} */}
+        {label}:
       </label>
+      </div>
+      <div className="col-8">
       <input
         type="range"
         id={`${label}-slider`}
@@ -26,6 +28,7 @@ const Slider = ({ label, min, max, step = 1, value, onChange, className }) => {
         onChange={onChange}
         style={{ width: '100%' }}
       />
+      </div>
     </div>
   );
 };
