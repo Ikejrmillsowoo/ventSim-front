@@ -10,6 +10,7 @@ const PatientCondition = ({setPatientCondition}) => {
     { id: 'nuero', name: 'NEUROMASCULAR DISEASE' },
     { id: 'pe', name: 'PE (Pulmonary Emobolism)' },
     { id: 'sedation', name: 'SEDATION' },
+    { id: 'custom', name: 'CUSTOM'}
   ]);
 
   const [selectedScenario, setSelectedScenario] = useState(scenarios[0].id);

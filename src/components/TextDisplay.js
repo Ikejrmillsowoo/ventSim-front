@@ -34,9 +34,9 @@ const TextDisplay = ({ label, value }) => {
       : label;
   return (
     <div className="card h-100 mb-3 text-center" id="card-color">
-      <h5 className="card-title cardTitleText">
+      <h6 className="card-title cardTitleText">
         {updateLabel ? updateLabel : " "}
-      </h5>
+      </h6>
       <p className="card-text">{value}</p>
     </div>
   );

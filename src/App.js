@@ -8,6 +8,7 @@ import VentilatorSettings from "./displays/ventilatorSettings/VentilatorSettings
 import defaultSettings from "./defaultSettings.json";
 import postInitVentilatorSettings from "./fetch/FetchInit";
 import VentilatorWaveforms from "./displays/VentilatorWaveForms";
+import CustomPatientModal from "./displays/customScenario/CustomScenario";
 
 function App() {
   const [condition, setPatientCondition] = useState("normal");
@@ -36,13 +37,17 @@ function App() {
   // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
   const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
   const [peep, setPeep] = useState(ventForm.peep || 5);
-  const [submitSettings, setSubmitSettings] = useState();
+  // const [submitSettings, setSubmitSettings] = useState();
 
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API
 
   useEffect(() => {
+    // if (condition === "custom"){
+       
+    // }
+
     const settings = defaultSettings.find(
       (item) => item.scenario === condition
     );
@@ -63,7 +68,7 @@ function App() {
       );
       setVentilatorMode(settings.mode);
       setAbgData(settings.abg);
-      console.log("Default settings loaded:", settings);
+      // console.log("Default settings loaded:", settings);
       postInitVentilatorSettings({
         rate: settings.respiratoryRate,
         pressure: settings.inspiratoryPressure
