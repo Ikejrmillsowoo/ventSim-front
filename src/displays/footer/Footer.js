@@ -1,4 +1,3 @@
-import Button from '../../components/Button'
 import FeedBack from '../FeedBack'
 
 function Footer({status, feedback}) {

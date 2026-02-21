@@ -42,15 +42,20 @@ function App() {
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API
+  const [settings, setSettings]= useState()
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
-    // if (condition === "custom"){
-       
-    // }
+    if (condition === "custom"){
+        setOpen(true)
+  
+    }
 
     const settings = defaultSettings.find(
       (item) => item.scenario === condition
     );
+
 
     if (settings) {
       setRate(settings.respiratoryRate);
@@ -104,6 +109,7 @@ function App() {
 
   return (
     <div className="App ">
+      <CustomPatientModal isOpen={open} onClose={()=> setOpen(false)} />
       <header className="header sticky-top text-white bg-dark py-1 mb-1">
         <Header
           weight={weight}

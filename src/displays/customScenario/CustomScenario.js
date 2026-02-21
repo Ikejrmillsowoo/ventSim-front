@@ -1,7 +1,10 @@
-// ...existing code...
 import React, { useState, useEffect } from 'react';
+import "./customScenario.css"
+import Button from '../../components/Button';
 
-export default function CustomPatientModal({ isOpen, onClose, onSave, initial }) {
+
+// export default function CustomPatientModal({ isOpen, onClose, onSave, initial }) {
+export default function CustomPatientModal({ isOpen, setSettings, onClose}) {
   const empty = {
     scenario: '',
     mode: 'Volume Control',
@@ -21,9 +24,15 @@ export default function CustomPatientModal({ isOpen, onClose, onSave, initial })
     }
   };
 
-  const [form, setForm] = useState(initial || empty);
+  const [form, setForm] = useState(empty);
+//   console.log(isOpen)
 
-  useEffect(() => setForm(initial || empty), [initial, isOpen]);
+  const onSave = ()=> {
+    setSettings(form)
+    alert(form)
+  }
+
+  useEffect(() => setForm( empty), [isOpen]);
 
   if (!isOpen) return null;
 
@@ -60,12 +69,8 @@ export default function CustomPatientModal({ isOpen, onClose, onSave, initial })
   };
 
   return (
-    <div style={{
-      position: 'fixed', left: 0, top: 0, right: 0, bottom: 0,
-      background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      zIndex: 1000
-    }}>
-      <form onSubmit={handleSubmit} style={{ background: '#fff', padding: 20, borderRadius: 6, width: 720, maxHeight: '90vh', overflow: 'auto' }}>
+    <div className='customModalBackdrop'>
+      <form onSubmit={handleSubmit} className='customModal'>
         <h3>Custom patient</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
           <label>
@@ -127,8 +132,10 @@ export default function CustomPatientModal({ isOpen, onClose, onSave, initial })
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 12 }}>
-          <button type="button" onClick={onClose} style={{ marginRight: 8 }}>Cancel</button>
-          <button type="submit">Save custom patient</button>
+          {/* <button type="button" onClick={onClose} style={{ marginRight: 8 }}>Cancel</button> */}
+          <Button type="button" onClick={onClose}>Cancel</Button>
+          {/* <button type="submit">Save custom patient</button> */}
+          <Button type="submit">Save custom patient</Button>
         </div>
       </form>
     </div>
