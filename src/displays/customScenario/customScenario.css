@@ -8,14 +8,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .customModal {
   background-color: rgb(44, 51, 60);
-  padding: 20;
-  border-radius: 10;
-  width: 720;
+  padding: 20px;
+  border-radius: 20px;
+  width: 720px;
   max-height: 90vh;
   overflow: auto;
+}
+
+.customModalLabel {
+  /* background-color: red; */
+}
+
+.btnClose {
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
 }

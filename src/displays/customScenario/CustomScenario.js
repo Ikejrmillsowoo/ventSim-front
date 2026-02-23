@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 
 
 // export default function CustomPatientModal({ isOpen, onClose, onSave, initial }) {
-export default function CustomPatientModal({ isOpen, setSettings, onClose}) {
+export default function CustomPatientModal({ setVentForm, setAbgData, isOpen, onClose}) {
   const empty = {
     scenario: '',
     mode: 'Volume Control',
@@ -28,8 +28,17 @@ export default function CustomPatientModal({ isOpen, setSettings, onClose}) {
 //   console.log(isOpen)
 
   const onSave = ()=> {
-    setSettings(form)
-    alert(form)
+    // setSettings(form)
+    setVentForm({
+        mode: form.mode,
+        tidalVolume: form.tidalVolume,
+        respiratoryRate: form.respiratoryRate,
+        peep: form.peep,
+        fio2: form.fio2,
+        inspiratoryPressure: form.inspiratoryPressure       
+    })
+    setAbgData(form.abg)
+    // alert(form.peep)
   }
 
   useEffect(() => setForm( empty), [isOpen]);
@@ -47,6 +56,7 @@ export default function CustomPatientModal({ isOpen, setSettings, onClose}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert("closes")
     // basic normalization: convert numeric fields
     const normalized = {
       ...form,
@@ -71,11 +81,11 @@ export default function CustomPatientModal({ isOpen, setSettings, onClose}) {
   return (
     <div className='customModalBackdrop'>
       <form onSubmit={handleSubmit} className='customModal'>
-        <h3>Custom patient</h3>
+        <h3 className='customModalLabel'>Custom Patient</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-          <label>
+          <label >
             Scenario name
-            <input value={form.scenario} onChange={e => set('scenario', e.target.value)} required />
+            <input value={form.scenario} onChange={e => set('scenario', e.target.value)}  />
           </label>
 
           <label>
@@ -133,9 +143,9 @@ export default function CustomPatientModal({ isOpen, setSettings, onClose}) {
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 12 }}>
           {/* <button type="button" onClick={onClose} style={{ marginRight: 8 }}>Cancel</button> */}
-          <Button type="button" onClick={onClose}>Cancel</Button>
+          <Button type="button" onClick={onClose} className='btnClose'>Cancel</Button>
           {/* <button type="submit">Save custom patient</button> */}
-          <Button type="submit">Save custom patient</Button>
+          <Button type="submit" onClick={handleSubmit} className='btnClose'>Save custom patient</Button>
         </div>
       </form>
     </div>
