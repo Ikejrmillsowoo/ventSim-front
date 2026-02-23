@@ -7,22 +7,23 @@ import VolumeSlider from "../sliders/VolumeSlider";
 import Button from "../../components/Button";
 import postVentilatorSettings from "../../fetch/Fetch";
 import Footer from "../footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
 
 // Main ventilator settings component
 function VentilatorSettings({
   stateId,
   setAbgData,
-  setVentForm,
-  ventForm,
+   setVentForm,
+  // ventForm,
   setFeedback,
   setStatus,
-  condition,
-  rate,
-  pressure,
-  oxygen,
-  volume,
-  peep,
-  ventilatorMode,
+   condition,
+  // rate,
+  // pressure,
+  // oxygen,
+  // volume,
+  // peep,
+  // ventilatorMode,
   setRate,
   setPressure,
   mode,
@@ -33,34 +34,39 @@ function VentilatorSettings({
   status,
   feedback,
 }) {
+  const dispatch = useDispatch();
+
+  const vent = useSelector(state=> state.patient.vent)
+  //console.log(vent)
   useEffect(() => {
     setVentForm({
-      mode: ventilatorMode,
-      tidalVolume: volume,
-      respiratoryRate: rate,
-      peep: peep,
-      fio2: oxygen,
-      inspiratoryPressure: pressure,
+      mode: vent.mode,
+      tidalVolume: vent.tidalVolume,
+      respiratoryRate: vent.respiratoryRate,
+      peep: vent.peep,
+      fio2: vent.fio2,
+      inspiratoryPressure: vent.inspiratoryPressure,
       // supportPressure: supportPressure
+      
     });
-  }, [rate, pressure, oxygen, peep, volume, ventilatorMode]);
+  }, [vent]);
 
   // console.log("VentForm in VentilatorSettings changing:", ventForm);
   // Handles form submission: sends settings to backend and updates feedback/status
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents default form behavior
-    console.log({ rate, pressure, oxygen, volume, peep, ventilatorMode }); // Debug log
+   // console.log({ rate, pressure, oxygen, volume, peep, ventilatorMode }); // Debug log
     try {
       // Send POST request to backend API
       const response = await postVentilatorSettings({
         stateId,
-        rate,
-        pressure,
-        oxygen,
-        volume,
-        peep,
+        rate: vent.respiratoryRate,
+        pressure: vent.inspiratoryPressure,
+        oxygen: vent.fio2,
+        volume: vent.tidalVolume,
+        peep: vent.peep,
         condition,
-        ventilatorMode,
+        ventilatorMode: vent.mode,
         weight,
       });
       console.log(response); // Debug log of API response
@@ -81,18 +87,18 @@ function VentilatorSettings({
       <h2 className="text-light">Ventilator Settings</h2>
       {/* Sliders for each ventilator parameter */}
       <RespiratoryRateSlider
-        setRate={setRate}
-        rate={ventForm.respiratoryRate}
+        // setRate={setRate}
+        // rate={vent.respiratoryRate}
       />
       <InspiratoryPressureSlider
-        pressure={ventForm.inspiratoryPressure}
+        pressure={vent.inspiratoryPressure}
         setPressure={setPressure}
-        mode={ventForm.mode}
+        mode={vent.mode}
       />
-      <OxygenSlider oxygen={ventForm.fio2} setOxygen={setOxygen} />
+      <OxygenSlider oxygen={vent.fio2} setOxygen={setOxygen} />
       {/* <SupportPressureSlider supportPressure={supportPressure} setSupportPressure={setSupportPressure}/> */}
-      <VolumeSlider volume={ventForm.tidalVolume} setVolume={setVolume} />
-      <PeepSlider peep={ventForm.peep} setPeep={setPeep} />
+      <VolumeSlider volume={vent.tidalVolume} setVolume={setVolume} />
+      <PeepSlider peep={vent.peep} setPeep={setPeep} />
 
       
         {/* Button to submit changes */}

@@ -1,17 +1,33 @@
-import React, { useState } from 'react'
-import Slider from '../../components/Slider'
+import React, { useState } from "react";
+import Slider from "../../components/Slider";
+import { useDispatch, useSelector } from "react-redux";
+import { setVent } from "../../redux/slices/PatientSlice";
 
-function VolumeSlider({volume, setVolume, mode}) {
+function VolumeSlider({ volume, setVolume, mode }) {
   // const [volume, setVolume] = useState(500);
+  const vent = useSelector((state) => state.patient.vent);
+  const dispatch = useDispatch();
 
   const handleVolumeChange = (event) => {
-    setVolume(Number(event.target.value));
+    dispatch(
+      setVent({
+        tidalVolume: event.target.value,
+      }),
+    );
   };
   return (
     <div>
-       <Slider label="Volume" min={0} max={3000} step={50} value={volume} onChange={handleVolumeChange} mode={mode}/>
+      <Slider
+        label="Volume"
+        min={0}
+        max={2000}
+        step={50}
+        value={vent.tidalVolume}
+        onChange={handleVolumeChange}
+        mode={mode}
+      />
     </div>
-  )
+  );
 }
 
-export default VolumeSlider
+export default VolumeSlider;

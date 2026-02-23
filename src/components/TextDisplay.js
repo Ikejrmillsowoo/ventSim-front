@@ -11,7 +11,7 @@ const TextDisplay = ({ label, value }) => {
   const updateLabel =
     label === "tidalVolume"
       ? "Vt"
-      : label === "respiratoryRate"
+      : label === "RespiratoryRate"
       ? "RR"
       : label === "inspiratoryPressure"
       ? "Pinsp"

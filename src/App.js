@@ -9,8 +9,14 @@ import defaultSettings from "./defaultSettings.json";
 import postInitVentilatorSettings from "./fetch/FetchInit";
 import VentilatorWaveforms from "./displays/VentilatorWaveForms";
 import CustomPatientModal from "./displays/customScenario/CustomScenario";
+import { useSelector, useDispatch } from 'react-redux';
+
 
 function App() {
+
+const vent = useSelector(state => state.patient.vent);
+const abg = useSelector(state => state.patient.abg);
+
   const [condition, setPatientCondition] = useState("normal");
   const [ventilatorMode, setVentilatorMode] = useState("VC");
   const [weight, setWeight] = useState("70");
@@ -23,12 +29,12 @@ function App() {
   });
 
   const [ventForm, setVentForm] = useState({
-    mode: ventilatorMode,
-    tidalVolume: 500,
-    respiratoryRate: 16,
-    peep: 5,
-    fio2: 21,
-    inspiratoryPressure: 10,
+    mode: vent.mode,
+    tidalVolume: vent.tidalVolume,
+    respiratoryRate: vent.respiratoryRate,
+    peep: vent.peep,
+    fio2: vent.fio2,
+    inspiratoryPressure: vent.inspiratoryPressure,
     // supportPressure: 0
   }); // Stores ventilator settings
   const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
@@ -123,7 +129,7 @@ function App() {
       </header>
       <section className="row ">
         <div className="col-md-8 mb-1">
-          <VentilatorParams ventForm={ventForm} data={abgData} />
+          <VentilatorParams data={abgData} />
         </div>
         <div className="col-md-4 mb-1">
           <ABGDisplay abgData={abgData} />

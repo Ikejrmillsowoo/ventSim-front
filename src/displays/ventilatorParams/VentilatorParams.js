@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import TextDisplay from '../../components/TextDisplay'
 import "./VentilatorParams.css"
 /**
@@ -6,14 +7,16 @@ import "./VentilatorParams.css"
  * @param {object} props.params - An object containing the ventilator parameters to display.
  * @param {string} [props.className] - Optional CSS class for styling the container.
  */
-function VentilatorParams({ventForm, className}) {
+function VentilatorParams({ className}) {
+
+  const vent = useSelector(state => state.patient.vent);
 
 
   return (
     <div className={`border rounded p-1 bg-dark text-light ${className || ''}`}>
         <h2 className='text-center'>Ventilator Parameters</h2>
     <div className='ventParams '>
-        {Object.entries(ventForm).map(([label, value]) => (
+        {Object.entries(vent).map(([label, value]) => (
         <div key={label} className='d-flex justify-content-between py-1 item' >
           <TextDisplay label={label} value={value} />
         </div>

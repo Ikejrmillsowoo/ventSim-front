@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import "./customScenario.css"
 import Button from '../../components/Button';
+import { useDispatch } from 'react-redux';
+import { setVent, setAbg, setScenarioName } from '../../redux/slices/PatientSlice';
 
 
-// export default function CustomPatientModal({ isOpen, onClose, onSave, initial }) {
-export default function CustomPatientModal({ setVentForm, setAbgData, isOpen, onClose}) {
+
+// export default function CustomPatientModal({ isOpen, onClose, initial }) {
+export default function CustomPatientModal({isOpen, onClose}) {
+
+    const dispatch = useDispatch();
+
   const empty = {
     scenario: '',
     mode: 'Volume Control',
@@ -27,19 +33,7 @@ export default function CustomPatientModal({ setVentForm, setAbgData, isOpen, on
   const [form, setForm] = useState(empty);
 //   console.log(isOpen)
 
-  const onSave = ()=> {
-    // setSettings(form)
-    setVentForm({
-        mode: form.mode,
-        tidalVolume: form.tidalVolume,
-        respiratoryRate: form.respiratoryRate,
-        peep: form.peep,
-        fio2: form.fio2,
-        inspiratoryPressure: form.inspiratoryPressure       
-    })
-    setAbgData(form.abg)
-    // alert(form.peep)
-  }
+
 
   useEffect(() => setForm( empty), [isOpen]);
 
@@ -56,7 +50,6 @@ export default function CustomPatientModal({ setVentForm, setAbgData, isOpen, on
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("closes")
     // basic normalization: convert numeric fields
     const normalized = {
       ...form,
@@ -74,9 +67,20 @@ export default function CustomPatientModal({ setVentForm, setAbgData, isOpen, on
         be: Number(form.abg.be)
       }
     };
-    onSave(normalized);
+    dispatch(setVent({
+      mode: normalized.mode,
+      tidalVolume: normalized.tidalVolume,
+      respiratoryRate: normalized.respiratoryRate,
+      peep: normalized.peep,
+      fio2: normalized.fio2,
+      inspiratoryPressure: normalized.inspiratoryPressure
+    }));
+    dispatch(setAbg(normalized.abg));
+    dispatch(setScenarioName(normalized.scenario || ''));
+
     onClose();
   };
+  
 
   return (
     <div className='customModalBackdrop'>

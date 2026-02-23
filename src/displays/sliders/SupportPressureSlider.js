@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import Slider from "../../components/Slider";
+import { useDispatch, useSelector } from "react-redux";
 
 function SupportPressureSlider({ supportPressure, setSupportPressure }) {
-  // const [supportPersure, setSupportPressure] = useState(10);
+ const vent = useSelector((state) => state.patient.vent);
+  const dispatch = useDispatch();
+
 
   const handleSupportPressureChange = (event) => {
+  
     setSupportPressure(Number(event.target.value));
   };
   return (
