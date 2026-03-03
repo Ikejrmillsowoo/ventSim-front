@@ -11,6 +11,7 @@ import {
   ReferenceLine,
 } from "recharts";
 import Footer from "./footer/Footer";
+import FeedBack from "./FeedBack";
 
 /**
  * VentilatorWaveforms
@@ -229,7 +230,7 @@ export default function VentilatorWaveforms({
         </ResponsiveContainer>
       </ChartPanel>
 
-      <Footer status={status} feedback={feedback} />
+      <FeedBack status={status} feedback={feedback} />
 
       {/* Flow–Volume loop (last breath) */}
       {/* <ChartPanel title="Flow–Volume Loop (last breath)" height={panelH} >

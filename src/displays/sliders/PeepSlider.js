@@ -3,7 +3,7 @@ import Slider from "../../components/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { setVent } from "../../redux/slices/PatientSlice";
 
-function PeepSlider({ peep, setPeep }) {
+function PeepSlider() {
   const vent = useSelector((state) => state.patient.vent);
   const dispatch = useDispatch();
 

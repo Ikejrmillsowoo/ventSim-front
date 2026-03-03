@@ -12,7 +12,7 @@
 const Slider = ({ label, min, max, step = 1, value, onChange, className }) => {
   return (
     <div className={`vertical-slider ${className || ''} set-space`} >
-      <div className="col-4">
+      <div className="col-3">
       <label htmlFor={`${label}-slider`} className="labelHeader">
         {label}:
       </label>
@@ -29,6 +29,7 @@ const Slider = ({ label, min, max, step = 1, value, onChange, className }) => {
         style={{ width: '100%' }}
       />
       </div>
+      <div className="col-1"></div>
     </div>
   );
 };

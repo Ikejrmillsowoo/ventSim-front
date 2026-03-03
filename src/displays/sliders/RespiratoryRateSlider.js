@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setVent} from '../../redux/slices/PatientSlice';
 
 
-function RespiratoryRateSlider({setRate, rate}) {
+function RespiratoryRateSlider() {
   const vent = useSelector(state => state.patient.vent);
   const dispatch = useDispatch();
 
 
   const handleRateChange = (event) => {
     dispatch(setVent({
-      RespiratoryRate: event.target.value
+      respiratoryRate: event.target.value
     }))
     // setRate(Number(event.target.value));
   };

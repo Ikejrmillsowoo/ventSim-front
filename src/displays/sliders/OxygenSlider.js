@@ -3,7 +3,7 @@ import Slider from "../../components/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { setVent } from "../../redux/slices/PatientSlice";
 
-function OxygenSlider({ oxygen, setOxygen }) {
+function OxygenSlider() {
   // const [oxygen, setOxygen] = useState(21);
   const vent = useSelector((state) => state.patient.vent);
   const dispatch = useDispatch();

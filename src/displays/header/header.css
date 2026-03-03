@@ -8,6 +8,7 @@
    font-size: 2.5rem;
   font-weight: 700;
   background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

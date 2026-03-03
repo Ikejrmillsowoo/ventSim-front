@@ -6,7 +6,7 @@ const initialState = {
     mode: 'Volume Control',
     tidalVolume: 500,
     inspiratoryPressure: 15,
-    RespiratoryRate: 16,
+    respiratoryRate: 16,
     peep: 5,
     fio2: 21
   },

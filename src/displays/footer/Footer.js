@@ -1,11 +1,12 @@
-import FeedBack from '../FeedBack'
+import FeedBack from "../FeedBack";
 
-function Footer({status, feedback}) {
+function Footer() {
   return (
     <div>
-        <FeedBack status={status} feedback={feedback}/>
+      {/* <FeedBack  feedback={feedback} /> */}
+      <p>© 2025 Ventilator Lab</p>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

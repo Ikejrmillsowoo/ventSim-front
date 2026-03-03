@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setVent } from "../../redux/slices/PatientSlice";
 
 // src/displays/InspiratoryPressureSlider.js
-function InspiratoryPressureSlider({ pressure, setPressure }) {
+function InspiratoryPressureSlider() {
   // const [pressure, setPressure] = useState(20);
   const vent = useSelector((state) => state.patient.vent);
   const dispatch = useDispatch();

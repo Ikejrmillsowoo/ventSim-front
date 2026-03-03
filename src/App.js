@@ -9,23 +9,25 @@ import defaultSettings from "./defaultSettings.json";
 import postInitVentilatorSettings from "./fetch/FetchInit";
 import VentilatorWaveforms from "./displays/VentilatorWaveForms";
 import CustomPatientModal from "./displays/customScenario/CustomScenario";
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useSelector, useDispatch } from "react-redux";
+import { setVent, setAbg } from "./redux/slices/PatientSlice";
+import FeedBack from "./displays/FeedBack";
 
 function App() {
+  const vent = useSelector((state) => state.patient.vent);
+  const abg = useSelector((state) => state.patient.abg);
 
-const vent = useSelector(state => state.patient.vent);
-const abg = useSelector(state => state.patient.abg);
+  const dispatch = useDispatch();
 
   const [condition, setPatientCondition] = useState("normal");
   const [ventilatorMode, setVentilatorMode] = useState("VC");
   const [weight, setWeight] = useState("70");
   const [abgData, setAbgData] = useState({
-    pH: 7.4,
-    PaCO2: 40,
-    PaO2: 90,
-    HCO3: 24,
-    SaO2: "97%",
+    pH: abg.pH,
+    PaCO2: abg.PaCO2,
+    PaO2: abg.PaO2,
+    HCO3: abg.HCO3,
+    SaO2: abg.fio2,
   });
 
   const [ventForm, setVentForm] = useState({
@@ -37,12 +39,12 @@ const abg = useSelector(state => state.patient.abg);
     inspiratoryPressure: vent.inspiratoryPressure,
     // supportPressure: 0
   }); // Stores ventilator settings
-  const [rate, setRate] = useState(ventForm.respiratoryRate || 16);
-  const [pressure, setPressure] = useState(ventForm.inspiratoryPressure || 10);
-  const [oxygen, setOxygen] = useState(ventForm.fio2 || 21);
-  // const [supportPressure, setSupportPressure] = useState(ventForm.supportPressure || 0);
-  const [volume, setVolume] = useState(ventForm.tidalVolume || 500);
-  const [peep, setPeep] = useState(ventForm.peep || 5);
+  const [rate, setRate] = useState(vent.respiratoryRate || 16);
+  const [pressure, setPressure] = useState(vent.inspiratoryPressure || 10);
+  const [oxygen, setOxygen] = useState(vent.fio2 || 21);
+  // const [supportPressure, setSupportPressure] = useState(vent.supportPressure || 0);
+  const [volume, setVolume] = useState(vent.tidalVolume || 500);
+  const [peep, setPeep] = useState(vent.peep || 5);
   // const [submitSettings, setSubmitSettings] = useState();
 
   const [feedback, setFeedback] = useState(); // Stores feedback from API
@@ -51,35 +53,35 @@ const abg = useSelector(state => state.patient.abg);
   // const [settings, setSettings]= useState()
   const [open, setOpen] = useState(false);
 
-
   useEffect(() => {
-    if (condition === "custom"){
-        setOpen(true)
-  
+    if (condition === "custom") {
+      setOpen(true);
     }
 
     const settings = defaultSettings.find(
-      (item) => item.scenario === condition
+      (item) => item.scenario === condition,
     );
 
-
+    console.log(settings);
     if (settings) {
-      setRate(settings.respiratoryRate);
-      setPressure(
-        settings.inspiratoryPressure
-          ? settings.inspiratoryPressure
-          : settings.tidalVolume / 50
+      dispatch(
+        setVent({
+          mode: settings.mode,
+          tidalVolume: settings.tidalVolume
+            ? settings.tidalVolume
+            : settings.inspiratoryPressure * 50,
+          inspiratoryPressure: settings.inspiratoryPressure
+            ? settings.inspiratoryPressure
+            : settings.tidalVolume / 50,
+          respiratoryRate: settings.respiratoryRate,
+          peep: settings.peep,
+          fio2: settings.fio2,
+        }),
       );
-      setOxygen(settings.fio2);
-      setPeep(settings.peep);
-      setVolume(
-        settings.tidalVolume
-          ? settings.tidalVolume
-          : settings.inspiratoryPressure * 50
-      );
+
       setVentilatorMode(settings.mode);
-      setAbgData(settings.abg);
-      // console.log("Default settings loaded:", settings);
+      dispatch(setAbg(settings.abg));
+
       postInitVentilatorSettings({
         rate: settings.respiratoryRate,
         pressure: settings.inspiratoryPressure
@@ -100,7 +102,7 @@ const abg = useSelector(state => state.patient.abg);
           console.log("Initial settings response:", response);
           setFeedback(response.feedback); // Update feedback from API
           setStatus(response.status); // Update status from API
-          setAbgData(response.abg); // Update ABG data in parent
+          dispatch(setAbg( response.abg)); // Update ABG data in parent
           setStateId(response.stateId); // Update stateId from API
         })
         .catch((error) => {
@@ -115,10 +117,12 @@ const abg = useSelector(state => state.patient.abg);
 
   return (
     <div className="App ">
-      <CustomPatientModal 
-      setVentForm={setVentForm}
-      setAbgData={setAbgData}
-      isOpen={open} onClose={()=> setOpen(false)} />
+      <CustomPatientModal
+        // setVentForm={setVentForm}
+        // setAbgData={setAbgData}
+        isOpen={open}
+        onClose={() => setOpen(false)}
+      />
       <header className="header sticky-top text-white bg-dark py-1 mb-1">
         <Header
           weight={weight}
@@ -132,57 +136,57 @@ const abg = useSelector(state => state.patient.abg);
           <VentilatorParams data={abgData} />
         </div>
         <div className="col-md-4 mb-1">
-          <ABGDisplay abgData={abgData} />
+          <ABGDisplay />
         </div>
       </section>
       <section className="row">
         <div className="col-md-8 mb-1">
-        <VentilatorWaveforms
-          mode="Pressure Control" // or "Volume Control", "PSV"
-          respiratoryRate={rate}
-          tidalVolume={volume} // used in VC
-          peep={peep}
-          inspiratoryPressure={pressure} // Δ above PEEP (PC)
-          supportPressure={12} // PS above PEEP (PSV)
-          compliance={50} // mL/cmH2O
-          resistance={10} // cmH2O/L/s
-          ieRatio="1:2"
-          height={540}
-          status={status}
-          feedback={feedback}
-        />
+          <VentilatorWaveforms
+            mode="Pressure Control" // or "Volume Control", "PSV"
+            respiratoryRate={rate}
+            tidalVolume={volume} // used in VC
+            peep={peep}
+            inspiratoryPressure={pressure} // Δ above PEEP (PC)
+            supportPressure={12} // PS above PEEP (PSV)
+            compliance={50} // mL/cmH2O
+            resistance={10} // cmH2O/L/s
+            ieRatio={`1:${60 / rate}`}
+            height={540}
+            status={status}
+            feedback={feedback}
+          />
         </div>
 
-      {/* </section>
+        {/* </section>
       <section className="mb-2"> */}
-      <div className="col-md-4 mb-1">
-        <VentilatorSettings
-          setRate={setRate}
-          rate={rate}
-          setPressure={setPressure}
-          pressure={pressure}
-          setOxygen={setOxygen}
-          oxygen={oxygen}
-          peep={peep}
-          setPeep={setPeep}
-          volume={volume}
-          setVolume={setVolume}
-          ventilatorMode={ventilatorMode}
-          weight={weight}
-          // setSupportPressure={setSupportPressure}
-          setAbgData={setAbgData}
-          setVentForm={setVentForm}
-          ventForm={ventForm}
-          setFeedback={setFeedback}
-          feedback={feedback}
-          setStatus={setStatus}
-          status={status}
-          condition={condition}
-          stateId={stateId}
-        />
+        <div className="col-md-4 mb-1">
+          <VentilatorSettings
+            // setRate={setRate}
+            // rate={rate}
+            // setPressure={setPressure}
+            // pressure={pressure}
+            // setOxygen={setOxygen}
+            // oxygen={oxygen}
+            // peep={peep}
+            // setPeep={setPeep}
+            // volume={volume}
+            // setVolume={setVolume}
+            // ventilatorMode={ventilatorMode}
+            weight={weight}
+            // setSupportPressure={setSupportPressure}
+            // setAbgData={setAbgData}
+            // setVentForm={setVentForm}
+            ventForm={ventForm}
+            setFeedback={setFeedback}
+            feedback={feedback}
+            setStatus={setStatus}
+            status={status}
+            condition={condition}
+            stateId={stateId}
+          />
         </div>
       </section>
-      {/* <Footer feedback={feedback} status={status} submitSettings={submitSettings} /> */}
+      <Footer  />
     </div>
   );
 }

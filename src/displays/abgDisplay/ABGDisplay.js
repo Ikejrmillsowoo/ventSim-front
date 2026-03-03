@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import TextDisplay from "../../components/TextDisplay";
+import { useSelector } from "react-redux";
 /**
  * A component that receives an object of ventilator parameters and displays them.
  * @param {object} props - The component props.
  * @param {object} props.params - An object containing the ventilator parameters to display.
  * @param {string} [props.className] - Optional CSS class for styling the container.
  */
-function ABGDisplay({ abgData, className }) {
+function ABGDisplay({ className }) {
+  const abg = useSelector(state=> state.patient.abg)
   const formatValue = (label, value) => {
     if (label === "pH") {
       if (typeof value === "number") {
@@ -28,15 +30,13 @@ function ABGDisplay({ abgData, className }) {
     }
     return value;
   };
-
+  // console.log("ABG STATE:", JSON.stringify(abg));
   return (
-    <div className={`border rounded p-3 bg-dark text-light ${className || ""}`}>
+    <div className={`border rounded p-1 bg-dark text-light ${className || ""}`}>
       <h2 className="text-center">ABG Results</h2>
       <div className="ventParams ">
-        {Object.entries(abgData).map(([label, value]) => (
+        {Object.entries(abg).map(([label, value]) => (
           <div key={label} className="d-flex justify-content-between py-1 item">
-            {/* <span>{key}</span>
-          <span>{String(value)}</span> */}
             <TextDisplay label={label} value={formatValue(label, value)} />
           </div>
         ))}

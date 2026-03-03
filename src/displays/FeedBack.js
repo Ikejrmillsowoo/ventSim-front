@@ -1,12 +1,11 @@
 import TextDisplay from '../components/TextDisplay'
 
-function FeedBack({status, feedback}) {
+function FeedBack({feedback}) {
 
 
   return (
     <div>
         <TextDisplay value={feedback} className="feedbackHeader" />
-        {/* <TextDisplay value={status} className="status-header" /> */}
     </div>
   )
 }
