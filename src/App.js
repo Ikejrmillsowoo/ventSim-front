@@ -42,15 +42,12 @@ function App() {
   const [rate, setRate] = useState(vent.respiratoryRate || 16);
   const [pressure, setPressure] = useState(vent.inspiratoryPressure || 10);
   const [oxygen, setOxygen] = useState(vent.fio2 || 21);
-  // const [supportPressure, setSupportPressure] = useState(vent.supportPressure || 0);
   const [volume, setVolume] = useState(vent.tidalVolume || 500);
   const [peep, setPeep] = useState(vent.peep || 5);
-  // const [submitSettings, setSubmitSettings] = useState();
 
   const [feedback, setFeedback] = useState(); // Stores feedback from API
   const [status, setStatus] = useState(); // Stores status from API
   const [stateId, setStateId] = useState(); // Stores stateId from API
-  // const [settings, setSettings]= useState()
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -112,14 +109,11 @@ function App() {
         });
     }
   }, [condition]);
-  // console.log("VentForm in App:", ventForm);
-  // console.log("Patient condition in Header:", condition);
+
 
   return (
     <div className="App ">
       <CustomPatientModal
-        // setVentForm={setVentForm}
-        // setAbgData={setAbgData}
         isOpen={open}
         onClose={() => setOpen(false)}
       />
@@ -157,25 +151,9 @@ function App() {
           />
         </div>
 
-        {/* </section>
-      <section className="mb-2"> */}
         <div className="col-md-4 mb-1">
           <VentilatorSettings
-            // setRate={setRate}
-            // rate={rate}
-            // setPressure={setPressure}
-            // pressure={pressure}
-            // setOxygen={setOxygen}
-            // oxygen={oxygen}
-            // peep={peep}
-            // setPeep={setPeep}
-            // volume={volume}
-            // setVolume={setVolume}
-            // ventilatorMode={ventilatorMode}
             weight={weight}
-            // setSupportPressure={setSupportPressure}
-            // setAbgData={setAbgData}
-            // setVentForm={setVentForm}
             ventForm={ventForm}
             setFeedback={setFeedback}
             feedback={feedback}

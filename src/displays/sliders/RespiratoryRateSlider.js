@@ -8,12 +8,10 @@ function RespiratoryRateSlider() {
   const vent = useSelector(state => state.patient.vent);
   const dispatch = useDispatch();
 
-
   const handleRateChange = (event) => {
     dispatch(setVent({
       respiratoryRate: event.target.value
     }))
-    // setRate(Number(event.target.value));
   };
   return (
     <div>
@@ -21,7 +19,7 @@ function RespiratoryRateSlider() {
       <Slider
         label="Rate"
         min={0}
-        max={40}
+        max={60}
         step={1}
         value={vent.RespiratoryRate}
         onChange={handleRateChange}
