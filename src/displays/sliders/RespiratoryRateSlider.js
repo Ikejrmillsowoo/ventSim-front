@@ -21,7 +21,7 @@ function RespiratoryRateSlider() {
         min={0}
         max={60}
         step={1}
-        value={vent.RespiratoryRate}
+        value={vent.respiratoryRate}
         onChange={handleRateChange}
       />
     </div>

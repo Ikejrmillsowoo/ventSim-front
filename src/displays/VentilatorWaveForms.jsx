@@ -10,7 +10,6 @@ import {
   Legend,
   ReferenceLine,
 } from "recharts";
-import Footer from "./footer/Footer";
 import FeedBack from "./FeedBack";
 import { useSelector } from "react-redux";
 
@@ -20,7 +19,6 @@ import { useSelector } from "react-redux";
  * Shows three panels:
  *  1) Volume vs Time (mL)
  *  2) Pressure vs Time (cmH2O)
- *  3) Flow–Volume loop (L/s vs mL) for the MOST RECENT breath
  *
  * Defaults:
  *  - I:E = 1:2
@@ -416,10 +414,10 @@ function WaveformTooltip({ active, payload, label }) {
   return (
     <div className="rounded-xl border bg-black p-2 shadow-md text-sm">
       <div className="font-semibold mb-1">t = {label.toFixed(2)} s</div>
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         {"volume" in p && (
           <div>
-            <div className="opacity-60">Volume</div>
+            <div className="opacity-100">Volume</div>
             <div>{Math.round(p.volume)} mL</div>
           </div>
         )}
