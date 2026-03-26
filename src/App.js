@@ -154,7 +154,7 @@ function App() {
         <div className="col-md-4 mb-1">
           <VentilatorSettings
             weight={weight}
-            ventForm={ventForm}
+            // ventForm={ventForm}
             setFeedback={setFeedback}
             feedback={feedback}
             setStatus={setStatus}

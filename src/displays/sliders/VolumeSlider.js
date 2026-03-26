@@ -3,7 +3,7 @@ import Slider from "../../components/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { setVent } from "../../redux/slices/PatientSlice";
 
-function VolumeSlider({ mode }) {
+function VolumeSlider({mode}) {
   // const [volume, setVolume] = useState(500);
   const vent = useSelector((state) => state.patient.vent);
   const dispatch = useDispatch();

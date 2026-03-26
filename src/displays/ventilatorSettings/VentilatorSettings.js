@@ -13,24 +13,10 @@ import { setAbg, setVent } from "../../redux/slices/PatientSlice";
 // Main ventilator settings component
 function VentilatorSettings({
   stateId,
-  // setAbgData,
-  //  setVentForm,
-  // ventForm,
   setFeedback,
   setStatus,
    condition,
-  // rate,
-  // pressure,
-  // oxygen,
-  // volume,
-  // peep,
-  // ventilatorMode,
-  // setRate,
-  // setPressure,
   mode,
-  // setOxygen,
-  // setVolume,
-  // setPeep,
   weight,
   status,
   feedback,
@@ -39,18 +25,8 @@ function VentilatorSettings({
   const dispatch = useDispatch();
 
   const vent = useSelector(state=> state.patient.vent)
-  //console.log(vent)
+
   useEffect(() => {
-    // setVentForm({
-    //   mode: vent.mode,
-    //   tidalVolume: vent.tidalVolume,
-    //   respiratoryRate: vent.respiratoryRate,
-    //   peep: vent.peep,
-    //   fio2: vent.fio2,
-    //   inspiratoryPressure: vent.inspiratoryPressure,
-    //   // supportPressure: supportPressure
-      
-    // });
     dispatch(setVent({
       mode: vent.mode,
       tidalVolume: vent.tidalVolume,
@@ -61,7 +37,6 @@ function VentilatorSettings({
     }))
   }, []);
 
-  // console.log("VentForm in VentilatorSettings changing:", ventForm);
   // Handles form submission: sends settings to backend and updates feedback/status
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents default form behavior
@@ -102,7 +77,7 @@ function VentilatorSettings({
 
       {loading && <LoadingGraphic />}
       {/* Sliders for each ventilator parameter */}
-      <RespiratoryRateSlider
+      <RespiratoryRateSlider respiratoryRate={vent.respiratoryRate}
         // setRate={setRate}
         // rate={vent.respiratoryRate}
       />

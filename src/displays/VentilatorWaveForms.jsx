@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import Footer from "./footer/Footer";
 import FeedBack from "./FeedBack";
+import { useSelector } from "react-redux";
 
 /**
  * VentilatorWaveforms
@@ -39,11 +40,11 @@ import FeedBack from "./FeedBack";
  *  - height: total height px (default 540)
  */
 export default function VentilatorWaveforms({
-  mode = "Volume Control",
-  respiratoryRate = 16,
-  tidalVolume = 500,
-  peep = 5,
-  inspiratoryPressure = 16,
+  mode,
+  // respiratoryRate = 16,
+  // tidalVolume = 500,
+  //  peep,
+  // inspiratoryPressure = 16,
   supportPressure = 10,
   compliance = 50, // mL/cmH2O
   resistance = 10, // cmH2O/L/s
@@ -52,11 +53,13 @@ export default function VentilatorWaveforms({
   status,
   feedback,
 }) {
+  const vent = useSelector(state=> state.patient.vent)
+
   // Parse mode & IE
   const parsedMode = useMemo(() => normalizeMode(mode), [mode]);
   const { Ti, Te, T } = useMemo(
-    () => computeTiming(respiratoryRate, ieRatio),
-    [respiratoryRate, ieRatio]
+    () => computeTiming(vent.respiratoryRate, ieRatio),
+    [vent.respiratoryRate, ieRatio]
   );
 
   // Engine settings
@@ -73,6 +76,7 @@ export default function VentilatorWaveforms({
   const loopCollectorRef = useRef([]);
   const animRef = useRef(null);
 
+  
   // Reset when key parameters change significantly
   useEffect(() => {
     setSeries([]);
@@ -82,11 +86,10 @@ export default function VentilatorWaveforms({
     prevTmodRef.current = 0;
   }, [
     parsedMode,
-    respiratoryRate,
-    tidalVolume,
-    peep,
-    inspiratoryPressure,
-    supportPressure,
+    vent.respiratoryRate,
+    vent.volume,
+    vent.peep,
+    vent.inspiratoryPressure,
     compliance,
     resistance,
     ieRatio,
@@ -110,9 +113,9 @@ export default function VentilatorWaveforms({
         Ti,
         Te,
         T,
-        vt_ml: tidalVolume,
-        peep_cmH2O: peep,
-        pinsp_delta_cmH2O: inspiratoryPressure,
+        vt_ml: vent.volume,
+        peep_cmH2O: vent.peep,
+        pinsp_delta_cmH2O: vent.inspiratoryPressure,
         psv_cmH2O: supportPressure,
         compliance_ml_per_cmH2O: compliance,
         resistance_cmH2O_per_Lps: resistance,
@@ -158,9 +161,9 @@ export default function VentilatorWaveforms({
     Ti,
     Te,
     T,
-    tidalVolume,
-    peep,
-    inspiratoryPressure,
+    vent.volume,
+    vent.peep,
+    vent.inspiratoryPressure,
     supportPressure,
     compliance,
     resistance,
@@ -218,7 +221,7 @@ export default function VentilatorWaveforms({
             <YAxis domain={[0, autoMax(series, "pressure", 40)]} />
             <Tooltip content={<WaveformTooltip />} />
             <Legend />
-            <ReferenceLine y={peep} strokeDasharray="4 2" label="PEEP" />
+            <ReferenceLine y={vent.peep} strokeDasharray="4 4" label="PEEP" />
             <Line
               isAnimationActive={false}
               type="monotone"
@@ -426,12 +429,12 @@ function WaveformTooltip({ active, payload, label }) {
             <div>{p.pressure.toFixed(1)} cmH₂O</div>
           </div>
         )}
-        {"flow" in p && (
+        {/* {"flow" in p && (
           <div>
             <div className="opacity-60">Flow</div>
             <div>{p.flow.toFixed(2)} L/s</div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
