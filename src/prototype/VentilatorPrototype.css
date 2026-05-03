@@ -1,0 +1,564 @@
+/* ============================================================
+   VENTILATOR PROTOTYPE — DESIGN SYSTEM
+   Medical device aesthetic: Puritan Bennett / Hamilton G5 style
+   ============================================================ */
+
+/* Design tokens */
+:root {
+  --vp-bg-root:        #0a0a0a;
+  --vp-bg-display:     #000000;
+  --vp-bg-panel:       #111111;
+  --vp-bg-control:     #1a1a1a;
+  --vp-bg-alarm:       #0d0d0d;
+
+  --vp-border-dim:     #2a2a2a;
+  --vp-border-bright:  #3a3a3a;
+
+  --vp-color-volume:   #00ff88;
+  --vp-color-pressure: #ffcc00;
+  --vp-color-flow:     #00ccff;
+
+  --vp-alarm-high:     #ff3333;
+  --vp-alarm-medium:   #ff8800;
+  --vp-alarm-none:     #00cc44;
+
+  --vp-param-spo2:     #00ccff;
+  --vp-param-rr:       #00ff88;
+  --vp-param-vt:       #ffcc00;
+  --vp-param-peep:     #ff8800;
+  --vp-param-fio2:     #e0e0e0;
+
+  --vp-font-mono:      'Courier New', Courier, monospace;
+  --vp-transition:     120ms ease-in-out;
+}
+
+/* ============================================================
+   SHELL LAYOUT
+   ============================================================ */
+.vp-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--vp-bg-root);
+  color: #e0e0e0;
+  font-family: var(--vp-font-mono);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.vp-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.vp-main-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ============================================================
+   ALARM BAR
+   ============================================================ */
+.vp-alarm-bar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  background: var(--vp-bg-alarm);
+  border-bottom: 2px solid var(--vp-border-bright);
+  padding: 0 16px;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.vp-alarm-segment {
+  font-family: var(--vp-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.vp-alarm-segment--logo {
+  color: var(--vp-alarm-none);
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+  border-color: var(--vp-alarm-none);
+  box-shadow: 0 0 8px rgba(0, 204, 68, 0.3);
+  margin-right: 8px;
+}
+
+.vp-alarm-segment--mode {
+  color: var(--vp-color-pressure);
+  border-color: var(--vp-color-pressure);
+  min-width: 110px;
+}
+
+.vp-alarm-segment--condition {
+  color: #aaaaaa;
+  border-color: #444;
+  font-size: 0.65rem;
+}
+
+.vp-alarm-segment--status {
+  color: var(--vp-alarm-none);
+  border-color: transparent;
+  margin-left: auto;
+}
+
+.vp-alarm-segment--status.standby {
+  color: #666;
+}
+
+.vp-alarm-segment--alarm {
+  color: #555;
+  border-color: transparent;
+}
+
+.vp-alarm-segment--alarm.active {
+  color: var(--vp-alarm-high);
+  border-color: var(--vp-alarm-high);
+  animation: vp-blink 700ms step-end infinite;
+}
+
+.vp-alarm-segment--alarm.warning {
+  color: var(--vp-alarm-medium);
+  border-color: var(--vp-alarm-medium);
+}
+
+@keyframes vp-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+
+/* ============================================================
+   WAVEFORM PANEL
+   ============================================================ */
+.vp-waveform-panel {
+  flex: 1;
+  background: var(--vp-bg-display);
+  padding: 4px 8px;
+  position: relative;
+  overflow: hidden;
+  border-right: 2px solid var(--vp-border-bright);
+  min-height: 0;
+}
+
+/* Scanline CRT overlay */
+.vp-waveform-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* -------- Recharts overrides (namespaced) -------- */
+
+/* Chart wrapper backgrounds */
+.vp-waveform-panel .rounded-2xl,
+.vp-waveform-panel [class*="rounded"] {
+  background: #020e06 !important;
+  border-color: #1a3a20 !important;
+}
+
+/* Grid lines — dark green oscilloscope style */
+.vp-waveform-panel .recharts-cartesian-grid-horizontal line,
+.vp-waveform-panel .recharts-cartesian-grid-vertical line {
+  stroke: #0d2a17;
+  stroke-dasharray: 3 3;
+}
+
+/* Axis tick labels */
+.vp-waveform-panel .recharts-xAxis .recharts-cartesian-axis-tick-value,
+.vp-waveform-panel .recharts-yAxis .recharts-cartesian-axis-tick-value {
+  fill: #3a7a4a !important;
+  font-family: var(--vp-font-mono);
+  font-size: 10px;
+}
+
+/* Axis lines */
+.vp-waveform-panel .recharts-cartesian-axis-line {
+  stroke: #1a3a20;
+}
+
+/* Volume waveform — green glow */
+.vp-waveform-panel svg:first-of-type .recharts-line-curve,
+.vp-waveform-panel .recharts-line-curve {
+  stroke: var(--vp-color-volume) !important;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 3px rgba(0, 255, 136, 0.7));
+}
+
+/* Second chart (Pressure) — amber. Target via parent SVG order */
+.vp-waveform-panel > div > div:nth-child(2) .recharts-line-curve {
+  stroke: var(--vp-color-pressure) !important;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 3px rgba(255, 204, 0, 0.7));
+}
+
+/* PEEP reference line */
+.vp-waveform-panel .recharts-reference-line line {
+  stroke: rgba(255, 204, 0, 0.4);
+  stroke-dasharray: 6 3;
+}
+
+.vp-waveform-panel .recharts-reference-line text {
+  fill: #ffcc00;
+  font-size: 9px;
+  font-family: var(--vp-font-mono);
+}
+
+/* Legend */
+.vp-waveform-panel .recharts-legend-item-text {
+  color: #5aaa7a !important;
+  font-family: var(--vp-font-mono) !important;
+  font-size: 10px !important;
+}
+
+.vp-waveform-panel .recharts-legend-icon {
+  fill: var(--vp-color-volume) !important;
+}
+
+/* Tooltip */
+.vp-waveform-panel .recharts-tooltip-wrapper [class*="rounded"] {
+  background: #0a1a0e !important;
+  border: 1px solid #2a4a2a !important;
+  color: var(--vp-color-volume);
+  font-family: var(--vp-font-mono);
+  font-size: 11px;
+}
+
+/* Chart title text */
+.vp-waveform-panel p,
+.vp-waveform-panel span.text-sm,
+.vp-waveform-panel .text-sm {
+  color: #3a7a4a !important;
+  font-family: var(--vp-font-mono) !important;
+  font-size: 11px !important;
+}
+
+/* Footer text inside VentilatorWaveforms (suppress) */
+.vp-waveform-panel .card-text,
+.vp-waveform-panel .feedbackHeader {
+  display: none !important;
+}
+
+/* ============================================================
+   BREATH INDICATOR
+   ============================================================ */
+.vp-breath-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-top: 1px solid var(--vp-border-dim);
+  background: #060f09;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.vp-breath-phases {
+  display: flex;
+  gap: 10px;
+}
+
+.vp-breath-phase {
+  font-family: var(--vp-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  padding: 4px 14px;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  color: #2a2a2a;
+  transition: color var(--vp-transition), border-color var(--vp-transition),
+              box-shadow var(--vp-transition);
+  text-transform: uppercase;
+}
+
+.vp-breath-phase--active {
+  color: var(--vp-alarm-none);
+  border-color: var(--vp-alarm-none);
+  box-shadow: 0 0 10px rgba(0, 204, 68, 0.4);
+}
+
+.vp-breath-meta {
+  font-size: 0.62rem;
+  color: #555;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   PARAMETER DISPLAY (right panel)
+   ============================================================ */
+.vp-param-panel {
+  width: 200px;
+  flex-shrink: 0;
+  background: var(--vp-bg-panel);
+  display: flex;
+  flex-direction: column;
+  padding: 6px 5px;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.vp-param-tile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--vp-border-dim);
+  border-radius: 2px;
+  padding: 6px 4px;
+  min-height: 68px;
+  position: relative;
+  background: #0c0c0c;
+}
+
+.vp-param-tile__value {
+  font-size: 2.8rem;
+  font-family: var(--vp-font-mono);
+  font-weight: bold;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.vp-param-tile__label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  margin-top: 4px;
+}
+
+.vp-param-tile__unit {
+  font-size: 0.6rem;
+  opacity: 0.35;
+  margin-top: 2px;
+}
+
+/* Color variants */
+.vp-param-tile[data-color="cyan"]   .vp-param-tile__value { color: var(--vp-param-spo2); }
+.vp-param-tile[data-color="green"]  .vp-param-tile__value { color: var(--vp-param-rr); }
+.vp-param-tile[data-color="yellow"] .vp-param-tile__value { color: var(--vp-param-vt); }
+.vp-param-tile[data-color="orange"] .vp-param-tile__value { color: var(--vp-param-peep); }
+.vp-param-tile[data-color="white"]  .vp-param-tile__value { color: var(--vp-param-fio2); }
+
+/* Left accent bar */
+.vp-param-tile::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 2px 0 0 2px;
+}
+
+.vp-param-tile[data-color="cyan"]::before   { background: var(--vp-param-spo2); }
+.vp-param-tile[data-color="green"]::before  { background: var(--vp-param-rr); }
+.vp-param-tile[data-color="yellow"]::before { background: var(--vp-param-vt); }
+.vp-param-tile[data-color="orange"]::before { background: var(--vp-param-peep); }
+.vp-param-tile[data-color="white"]::before  { background: var(--vp-param-fio2); }
+
+/* ============================================================
+   CONTROL PANEL BAR
+   ============================================================ */
+.vp-control-bar {
+  background: var(--vp-bg-control);
+  border-top: 2px solid var(--vp-border-bright);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.vp-control-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.vp-control-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+/* Override Bootstrap selects/inputs inside control bar */
+.vp-control-bar select,
+.vp-control-bar input[type="number"],
+.vp-control-bar input[type="text"] {
+  background: #222 !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #444 !important;
+  font-family: var(--vp-font-mono) !important;
+  font-size: 0.8rem !important;
+  padding: 3px 6px !important;
+  border-radius: 2px !important;
+}
+
+.vp-control-bar label {
+  color: #888 !important;
+  font-family: var(--vp-font-mono) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 1px !important;
+}
+
+/* Slider bank */
+.vp-slider-bank {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.vp-slider-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 75px;
+}
+
+.vp-slider-item__label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+.vp-slider-item__value {
+  font-size: 1rem;
+  font-family: var(--vp-font-mono);
+  font-weight: bold;
+  color: var(--vp-color-volume);
+  min-width: 50px;
+  text-align: center;
+}
+
+.vp-slider-item input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: #333;
+  outline: none;
+  cursor: pointer;
+}
+
+.vp-slider-item input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--vp-color-volume);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
+}
+
+.vp-slider-item input[type="range"]::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--vp-color-volume);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
+}
+
+/* APPLY button */
+.vp-apply-btn {
+  font-family: var(--vp-font-mono);
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #0d2a17;
+  color: var(--vp-alarm-none);
+  border: 2px solid var(--vp-alarm-none);
+  padding: 8px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 204, 68, 0.2), inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+  transition: all var(--vp-transition);
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.vp-apply-btn:hover {
+  background: #0d4020;
+  box-shadow: 0 0 18px rgba(0, 204, 68, 0.45), inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.vp-apply-btn:active {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7);
+  transform: translateY(1px);
+}
+
+/* ABG strip */
+.vp-abg-strip {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  font-family: var(--vp-font-mono);
+  padding-top: 6px;
+  border-top: 1px solid var(--vp-border-dim);
+}
+
+.vp-abg-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.vp-abg-item__label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #555;
+}
+
+.vp-abg-item__value {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #aaffcc;
+}
+
+.vp-abg-item[data-key="pH"]    .vp-abg-item__value { color: var(--vp-param-spo2); }
+.vp-abg-item[data-key="paCO2"] .vp-abg-item__value { color: var(--vp-color-pressure); }
+.vp-abg-item[data-key="paO2"]  .vp-abg-item__value { color: var(--vp-color-volume); }
+.vp-abg-item[data-key="hco3"]  .vp-abg-item__value { color: #e0e0e0; }
+.vp-abg-item[data-key="saO2"]  .vp-abg-item__value { color: var(--vp-param-spo2); }
+
+.vp-abg-divider {
+  color: #333;
+  font-size: 1.2rem;
+  align-self: center;
+}
