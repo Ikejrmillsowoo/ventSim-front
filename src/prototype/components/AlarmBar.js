@@ -37,16 +37,20 @@ export default function AlarmBar({ ventilatorMode, condition, status, feedback, 
         <span className={`vp-alarm-segment vp-alarm-segment--status${status ? "" : " standby"}`}>
           {status ? "● VENTILATING" : "◌ STANDBY"}
         </span>
-        <span
-          className={`${alarmClass}${hasMessage ? " vp-alarm-segment--clickable" : ""}`}
-          onClick={() => hasMessage && setPopupOpen(true)}
-          title={hasMessage ? "Click to view full message" : undefined}
-        >
-          {alarmText}
-        </span>
-        <button className="vp-theme-toggle" onClick={onToggleTheme}>
-          {theme === "dark" ? "☀ LIGHT" : "☾ DARK"}
-        </button>
+
+        <div className="vp-alarm-bar__right">
+          <button
+            className={`vp-alarm-btn${hasError ? " error" : hasFeedback ? " warning" : " silent"}`}
+            onClick={() => hasMessage && setPopupOpen(true)}
+            disabled={!hasMessage}
+            title={hasMessage ? alarmText : "No active alarms"}
+          >
+            {hasError ? "⚠ ALARM" : hasFeedback ? "ℹ MSG" : "✓ CLEAR"}
+          </button>
+          <button className="vp-theme-toggle" onClick={onToggleTheme}>
+            {theme === "dark" ? "☀ LIGHT" : "☾ DARK"}
+          </button>
+        </div>
       </div>
 
       {popupOpen && (

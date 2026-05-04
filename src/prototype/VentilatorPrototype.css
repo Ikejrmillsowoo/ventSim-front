@@ -184,7 +184,6 @@
 .vp-alarm-segment--status {
   color: #00cc44;
   border-color: transparent;
-  margin-left: auto;
 }
 
 .vp-alarm-segment--status.standby {
@@ -212,15 +211,51 @@
   50%       { opacity: 0.15; }
 }
 
-/* Clickable alarm segment */
-.vp-alarm-segment--clickable {
-  cursor: pointer;
-  text-decoration: underline dotted;
-  text-underline-offset: 3px;
+/* Right side of alarm bar */
+.vp-alarm-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
-.vp-alarm-segment--clickable:hover {
-  filter: brightness(1.25);
+/* Compact alarm button */
+.vp-alarm-btn {
+  font-family: var(--vp-font-mono);
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 2px;
+  border: 1px solid;
+  cursor: pointer;
+  background: transparent;
+  white-space: nowrap;
+  transition: filter 120ms, box-shadow 120ms;
+}
+
+.vp-alarm-btn.error {
+  color: #ff3333;
+  border-color: #ff3333;
+  animation: vp-blink 700ms step-end infinite;
+}
+
+.vp-alarm-btn.warning {
+  color: #ffcc00;
+  border-color: #ffcc00;
+}
+
+.vp-alarm-btn.silent {
+  color: #555;
+  border-color: #444;
+  cursor: default;
+}
+
+.vp-alarm-btn:not(.silent):hover {
+  filter: brightness(1.3);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
 }
 
 /* ============================================================
