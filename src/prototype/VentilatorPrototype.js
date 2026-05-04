@@ -9,6 +9,7 @@ import postInitVentilatorSettings from "../fetch/FetchInit";
 import postVentilatorSettings from "../fetch/Fetch";
 
 export default function VentilatorPrototype() {
+  const [theme, setTheme] = useState("dark");
   const [condition, setPatientCondition] = useState("normal");
   const [ventilatorMode, setVentilatorMode] = useState("Volume Control");
   const [weight, setWeight] = useState("70");
@@ -103,12 +104,14 @@ export default function VentilatorPrototype() {
   };
 
   return (
-    <div className="vp-shell">
+    <div className="vp-shell" data-theme={theme}>
       <AlarmBar
         ventilatorMode={ventilatorMode}
         condition={condition}
         status={status}
         feedback={feedback}
+        theme={theme}
+        onToggleTheme={() => setTheme(t => t === "dark" ? "light" : "dark")}
       />
 
       <div className="vp-body">

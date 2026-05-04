@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AlarmBar({ ventilatorMode, condition, status, feedback }) {
+export default function AlarmBar({ ventilatorMode, condition, status, feedback, theme, onToggleTheme }) {
   const hasError = status === "Error" || status === "error";
   const hasFeedback = feedback && !hasError;
 
@@ -33,6 +33,9 @@ export default function AlarmBar({ ventilatorMode, condition, status, feedback }
         {status ? "● VENTILATING" : "◌ STANDBY"}
       </span>
       <span className={alarmClass}>{alarmText}</span>
+      <button className="vp-theme-toggle" onClick={onToggleTheme}>
+        {theme === "dark" ? "☀ LIGHT" : "☾ DARK"}
+      </button>
     </div>
   );
 }
