@@ -834,3 +834,147 @@
   font-size: 1.2rem;
   align-self: center;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Body stays as flex row — waveforms left, params right */
+  .vp-body {
+    flex-direction: row;
+  }
+
+  /* Waveform column: exactly half the viewport width */
+  .vp-main-column {
+    flex: 0 0 50%;
+    width: 50%;
+    min-width: 0;
+  }
+
+  /* Param panel fills the remaining 50% */
+  .vp-param-panel {
+    width: auto;
+    flex: 1;
+    min-width: 90px;
+  }
+
+  /* Shrink param tile numbers */
+  .vp-param-tile {
+    min-height: 52px;
+    padding: 4px 3px;
+  }
+
+  .vp-param-tile__value {
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+  }
+
+  .vp-param-tile__label {
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .vp-param-tile__unit {
+    font-size: 0.48rem;
+    margin-top: 1px;
+  }
+
+  /* Alarm bar — tighten segments */
+  .vp-alarm-bar {
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .vp-alarm-segment {
+    font-size: 0.58rem;
+    padding: 2px 6px;
+    letter-spacing: 1px;
+  }
+
+  .vp-alarm-segment--logo {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  .vp-alarm-segment--condition {
+    display: none; /* hide PT: label to save space */
+  }
+
+  /* Breath indicator — single line on mobile */
+  .vp-breath-indicator {
+    flex-wrap: wrap;
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .vp-breath-phase {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+  }
+
+  .vp-breath-meta {
+    font-size: 0.54rem;
+    white-space: normal;
+  }
+
+  /* Control bar — tighter */
+  .vp-control-bar {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .vp-slider-bank {
+    gap: 10px;
+  }
+
+  .vp-slider-item {
+    min-width: 58px;
+  }
+
+  .vp-slider-item__value {
+    font-size: 0.85rem;
+  }
+
+  .vp-slider-item__label {
+    font-size: 0.52rem;
+  }
+
+  .vp-abg-strip {
+    gap: 10px;
+  }
+
+  .vp-abg-item__value {
+    font-size: 0.85rem;
+  }
+
+  /* Alarm popup — full width on mobile */
+  .vp-alarm-popup {
+    width: 95vw;
+  }
+}
+
+/* Extra small (phones < 480px) */
+@media (max-width: 480px) {
+  .vp-param-tile__value {
+    font-size: 1.4rem;
+  }
+
+  .vp-param-tile {
+    min-height: 44px;
+  }
+
+  .vp-alarm-segment--mode {
+    min-width: unset;
+  }
+
+  .vp-slider-item {
+    min-width: 46px;
+  }
+
+  .vp-apply-btn {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+}
