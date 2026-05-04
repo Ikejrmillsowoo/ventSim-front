@@ -1,5 +1,5 @@
 const postInitVentilatorSettings = async ({mode, rate, pressure, oxygen, supportPressure, volume, peep, weight, condition}) => {
-  const API_URL = 'http://localhost:8080/api/simulate/init';
+  const API_URL = '${process.env.REACT_APP_API_URL}/api/simulate/init';
     const settings = { 
         respiratoryRate: rate, 
         tidalVolume: volume, 
