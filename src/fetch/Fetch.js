@@ -7,7 +7,7 @@
  * @throws {Error} Throws an error if the network request fails or the server responds with an error.
  */
 const postVentilatorSettings = async ({stateId, rate, pressure, oxygen, supportPressure, volume, peep, condition, ventilatorMode, weight}) => {
-    const API_URL = '${process.env.REACT_APP_API_URL}/api/simulate/simulate';
+    const API_URL = `${process.env.REACT_APP_API_URL}/api/simulate/simulate`;
     const settings = { 
         stateId: stateId,
         respiratoryRate: rate, 
