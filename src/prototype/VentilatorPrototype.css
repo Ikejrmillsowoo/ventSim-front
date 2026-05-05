@@ -31,17 +31,17 @@
   --vp-param-peep:     #ff8800;
   --vp-param-fio2:     #e0e0e0;
 
-  --vp-text-primary:   #e0e0e0;
-  --vp-text-secondary: #aaaaaa;
-  --vp-text-dim:       #888888;
-  --vp-text-muted:     #666666;
+  --vp-text-primary:   #dcdcdc;
+  --vp-text-secondary: #dddbdb;
+  --vp-text-dim:       #dddcdc;
+  --vp-text-muted:     #e6e1e1;
 
   --vp-tile-bg:        #0c0c0c;
 
   --vp-chart-bg:       #020e06;
   --vp-chart-border:   #1a3a20;
   --vp-chart-grid:     #1a4a28;
-  --vp-chart-axis:     #5aaa6a;
+  --vp-chart-axis:     #78e38d;
 
   --vp-slider-track:   #333333;
   --vp-input-bg:       #222222;
