@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 
+function abbreviateMode(mode) {
+  const m = String(mode).toUpperCase();
+  if (m.includes("VOLUME"))   return "VC";
+  if (m.includes("PRESSURE CONTROL") || m === "PC") return "PC";
+  if (m.includes("PRESSURE SUPPORT") || m === "PSV") return "PSV";
+  if (m.includes("CPAP") || m.includes("CONTINUOUS")) return "CPAP";
+  return m.slice(0, 4);
+}
+
 export default function AlarmBar({ ventilatorMode, condition, status, feedback, theme, onToggleTheme }) {
   const [popupOpen, setPopupOpen] = useState(false);
 
@@ -18,9 +27,8 @@ export default function AlarmBar({ ventilatorMode, condition, status, feedback, 
     ? feedback
     : "-- NO ALARM --";
 
-  const modeLabel = ventilatorMode
-    ? `MODE: ${String(ventilatorMode).toUpperCase()}`
-    : "MODE: --";
+  const modeAbbr  = ventilatorMode ? abbreviateMode(ventilatorMode) : "--";
+  const modeFull  = ventilatorMode ? `MODE: ${String(ventilatorMode).toUpperCase()}` : "MODE: --";
 
   const conditionLabel = condition
     ? `PT: ${String(condition).toUpperCase()}`
@@ -32,7 +40,9 @@ export default function AlarmBar({ ventilatorMode, condition, status, feedback, 
     <>
       <div className="vp-alarm-bar">
         <span className="vp-alarm-segment vp-alarm-segment--logo">VENTI-LAB</span>
-        <span className="vp-alarm-segment vp-alarm-segment--mode">{modeLabel}</span>
+        {/* Desktop: full mode name — Mobile: abbreviation only */}
+        <span className="vp-alarm-segment vp-alarm-segment--mode vp-mode-full">{modeFull}</span>
+        <span className="vp-alarm-segment vp-alarm-segment--mode vp-mode-abbr">{modeAbbr}</span>
         <span className="vp-alarm-segment vp-alarm-segment--condition">{conditionLabel}</span>
         <span className={`vp-alarm-segment vp-alarm-segment--status${status ? "" : " standby"}`}>
           {status ? "● VENTILATING" : "◌ STANDBY"}

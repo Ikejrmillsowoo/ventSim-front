@@ -211,6 +211,19 @@
   50%       { opacity: 0.15; }
 }
 
+/* Mode label variants — full on desktop, abbr on mobile */
+.vp-mode-abbr { display: none; }
+.vp-mode-full { display: inline; }
+
+/* ============================================================
+   MOBILE RESPONSIVE (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .vp-mode-full { display: none; }
+  .vp-mode-abbr { display: inline; }
+  .vp-alarm-segment--status { display: none; }
+}
+
 /* Right side of alarm bar */
 .vp-alarm-bar__right {
   display: flex;
@@ -957,8 +970,7 @@
 
 /* Extra small (phones < 480px) */
 @media (max-width: 480px) {
-  .vp-alarm-segment--condition,
-  .vp-alarm-segment--status {
+  .vp-alarm-segment--condition {
     display: none;
   }
 
