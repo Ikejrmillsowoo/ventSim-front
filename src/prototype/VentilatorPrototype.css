@@ -957,6 +957,11 @@
 
 /* Extra small (phones < 480px) */
 @media (max-width: 480px) {
+  .vp-alarm-segment--condition,
+  .vp-alarm-segment--status {
+    display: none;
+  }
+
   .vp-param-tile__value {
     font-size: 1.4rem;
   }
