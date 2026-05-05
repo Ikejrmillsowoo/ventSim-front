@@ -121,6 +121,7 @@ export default function VentilatorPrototype() {
           volume={volume}
           peep={peep}
           pressure={pressure}
+          abgData={abgData}
         />
         <ParameterDisplay
           rate={rate}

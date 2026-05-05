@@ -618,6 +618,108 @@
 }
 
 /* ============================================================
+   ABG PANEL (between waveforms and breath indicator)
+   ============================================================ */
+.vp-abg-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #060f09;
+  border-top: 1px solid var(--vp-border-dim);
+  flex-shrink: 0;
+}
+
+.vp-shell[data-theme="light"] .vp-abg-panel {
+  background: #dceee4;
+}
+
+.vp-abg-panel__label {
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--vp-text-muted);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  flex-shrink: 0;
+}
+
+.vp-abg-panel__tiles {
+  display: flex;
+  flex: 1;
+  gap: 6px;
+}
+
+.vp-abg-panel__tile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  border: 1px solid var(--vp-border-dim);
+  border-radius: 2px;
+  background: #0a1a0e;
+  position: relative;
+}
+
+.vp-shell[data-theme="light"] .vp-abg-panel__tile {
+  background: #ffffff;
+  border-color: var(--vp-border-dim);
+}
+
+.vp-abg-panel__value {
+  font-size: 1.5rem;
+  font-family: var(--vp-font-mono);
+  font-weight: bold;
+  line-height: 1;
+}
+
+.vp-abg-panel__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3px;
+  gap: 1px;
+}
+
+.vp-abg-panel__name {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--vp-text-dim);
+}
+
+.vp-abg-panel__unit {
+  font-size: 0.48rem;
+  color: var(--vp-text-muted);
+  opacity: 0.7;
+}
+
+/* Color per ABG key */
+.vp-abg-panel__tile[data-key="pH"]    .vp-abg-panel__value { color: var(--vp-param-spo2); }
+.vp-abg-panel__tile[data-key="paCO2"] .vp-abg-panel__value { color: var(--vp-color-pressure); }
+.vp-abg-panel__tile[data-key="paO2"]  .vp-abg-panel__value { color: var(--vp-color-volume); }
+.vp-abg-panel__tile[data-key="hco3"]  .vp-abg-panel__value { color: var(--vp-text-primary); }
+.vp-abg-panel__tile[data-key="saO2"]  .vp-abg-panel__value { color: var(--vp-param-spo2); }
+
+/* Left accent bar per tile */
+.vp-abg-panel__tile::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  border-radius: 2px 0 0 2px;
+}
+.vp-abg-panel__tile[data-key="pH"]::before    { background: var(--vp-param-spo2); }
+.vp-abg-panel__tile[data-key="paCO2"]::before { background: var(--vp-color-pressure); }
+.vp-abg-panel__tile[data-key="paO2"]::before  { background: var(--vp-color-volume); }
+.vp-abg-panel__tile[data-key="hco3"]::before  { background: var(--vp-text-dim); }
+.vp-abg-panel__tile[data-key="saO2"]::before  { background: var(--vp-param-spo2); }
+
+/* Hide the redundant ABG strip in the control bar */
+.vp-abg-strip { display: none; }
+
+/* ============================================================
    BREATH INDICATOR
    ============================================================ */
 .vp-breath-indicator {
