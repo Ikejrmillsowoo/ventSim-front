@@ -1150,6 +1150,38 @@
   .vp-alarm-popup {
     width: 95vw;
   }
+
+  /* ABG panel — compact on mobile */
+  .vp-abg-panel {
+    padding: 4px 6px;
+    gap: 4px;
+  }
+
+  .vp-abg-panel__label {
+    display: none;
+  }
+
+  .vp-abg-panel__tiles {
+    gap: 2px;
+  }
+
+  .vp-abg-panel__tile {
+    padding: 3px 2px;
+    min-width: 0;
+  }
+
+  .vp-abg-panel__value {
+    font-size: 0.88rem;
+  }
+
+  .vp-abg-panel__name {
+    font-size: 0.44rem;
+    letter-spacing: 0.3px;
+  }
+
+  .vp-abg-panel__unit {
+    font-size: 0.38rem;
+  }
 }
 
 /* Extra small (phones < 480px) */
@@ -1177,5 +1209,22 @@
   .vp-apply-btn {
     padding: 6px 12px;
     font-size: 0.7rem;
+  }
+
+  /* ABG panel — even tighter on small phones */
+  .vp-abg-panel__value {
+    font-size: 0.72rem;
+  }
+
+  .vp-abg-panel__name {
+    font-size: 0.38rem;
+  }
+
+  .vp-abg-panel__unit {
+    font-size: 0.32rem;
+  }
+
+  .vp-abg-panel__tile {
+    padding: 2px 1px;
   }
 }
