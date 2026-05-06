@@ -48,6 +48,7 @@ export default function VentilatorWaveforms({
   resistance = 10, // cmH2O/L/s
   ieRatio = "1:2",
   height = 540,
+  windowSeconds = 60,
   status,
   feedback,
 }) {
@@ -60,7 +61,7 @@ export default function VentilatorWaveforms({
 
   // Engine settings
   const dt = 0.05; // 50 ms per frame (~20 FPS)
-  const maxPoints = Math.ceil(60 / dt); // 60s window
+  const maxPoints = Math.ceil(windowSeconds / dt);
 
   // State: rolling series and the loop of the most recent breath
   const [series, setSeries] = useState([]); // [{t, volume, pressure, flow}]
@@ -118,10 +119,10 @@ export default function VentilatorWaveforms({
       });
 
       // Build new point
-      const tDisplay = tElapsed % 60; // rolling 60s window
+      const tDisplay = tElapsed % windowSeconds;
       const point = { t: tDisplay, volume, pressure, flow };
 
-      // Update rolling series (max 60s)
+      // Update rolling series
       setSeries((prev) => {
         if (tDisplay < (prev[prev.length - 1]?.t || 0)) {
           // Time wrapped, start new cycle
@@ -165,6 +166,7 @@ export default function VentilatorWaveforms({
     resistance,
     dt,
     maxPoints,
+    windowSeconds,
   ]);
 
   const panelH = Math.max(160, Math.floor(height / 3));
@@ -182,7 +184,7 @@ export default function VentilatorWaveforms({
             <XAxis
               dataKey="t"
               type="number"
-              domain={[0, 60]}
+              domain={[0, windowSeconds]}
               tickFormatter={(v) => `${Math.floor(v)}s`}
             />
             <YAxis domain={[0, autoMax(series, "volume", 800)]} />
@@ -211,7 +213,7 @@ export default function VentilatorWaveforms({
             <XAxis
               dataKey="t"
               type="number"
-              domain={[0, 60]}
+              domain={[0, windowSeconds]}
               tickFormatter={(v) => `${Math.floor(v)}s`}
             />
             <YAxis domain={[0, autoMax(series, "pressure", 40)]} />
