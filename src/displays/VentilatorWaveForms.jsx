@@ -169,7 +169,7 @@ export default function VentilatorWaveforms({
     windowSeconds,
   ]);
 
-  const panelH = Math.max(160, Math.floor(height / 3));
+  const panelH = Math.max(160, Math.floor(height / 2));
 
   return (
     <div className="w-full space-y-6">

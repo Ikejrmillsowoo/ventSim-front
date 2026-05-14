@@ -90,7 +90,7 @@ export default function ControlPanelBar({
       </div>
 
       {/* Row 3 — ABG strip */}
-      <div className="vp-abg-strip">
+      {/* <div className="vp-abg-strip">
         <span className="vp-abg-item__label" style={{ alignSelf: "center", marginRight: 4 }}>ABG:</span>
         {abgItems.map((item, i) => (
           <React.Fragment key={item.key}>
@@ -101,7 +101,7 @@ export default function ControlPanelBar({
             {i < abgItems.length - 1 && <div className="vp-abg-divider">·</div>}
           </React.Fragment>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

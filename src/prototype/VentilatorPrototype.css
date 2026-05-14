@@ -32,7 +32,7 @@
   --vp-param-fio2:     #e0e0e0;
 
   --vp-text-primary:   #dcdcdc;
-  --vp-text-secondary: #dddbdb;
+  --vp-text-secondary: #ffffff;
   --vp-text-dim:       #dddcdc;
   --vp-text-muted:     #e6e1e1;
 
@@ -41,7 +41,7 @@
   --vp-chart-bg:       #020e06;
   --vp-chart-border:   #1a3a20;
   --vp-chart-grid:     #1a4a28;
-  --vp-chart-axis:     #78e38d;
+  --vp-chart-axis:     #fdfffd;
 
   --vp-slider-track:   #333333;
   --vp-input-bg:       #222222;
@@ -759,7 +759,7 @@
 }
 
 .vp-breath-meta {
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   color: var(--vp-text-dim);
   letter-spacing: 1px;
   white-space: nowrap;
@@ -804,7 +804,7 @@
 }
 
 .vp-param-tile__label {
-  font-size: 0.58rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--vp-text-secondary);
@@ -883,7 +883,7 @@
   color: var(--vp-input-text) !important;
   border: 1px solid var(--vp-input-border) !important;
   font-family: var(--vp-font-mono) !important;
-  font-size: 0.8rem !important;
+  font-size: 1rem !important;
   padding: 3px 6px !important;
   border-radius: 2px !important;
 }
@@ -1044,8 +1044,8 @@
 
   /* Waveform column: exactly half the viewport width */
   .vp-main-column {
-    flex: 0 0 50%;
-    width: 50%;
+    flex: 0 0 70%;
+    width: 60%;
     min-width: 0;
   }
 
@@ -1053,7 +1053,7 @@
   .vp-param-panel {
     width: auto;
     flex: 1;
-    min-width: 90px;
+    min-width: 80px;
   }
 
   /* Shrink param tile numbers */
@@ -1068,13 +1068,13 @@
   }
 
   .vp-param-tile__label {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
     margin-top: 2px;
   }
 
   .vp-param-tile__unit {
-    font-size: 0.48rem;
+    font-size: .75rem;
     margin-top: 1px;
   }
 
@@ -1175,12 +1175,12 @@
   }
 
   .vp-abg-panel__name {
-    font-size: 0.44rem;
+    font-size: 0.65rem;
     letter-spacing: 0.3px;
   }
 
   .vp-abg-panel__unit {
-    font-size: 0.38rem;
+    font-size: 0.44rem;
   }
 }
 
