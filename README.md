@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# ventSim-front
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based web application for visualizing and simulating ventilator parameters and performance metrics.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+ventSim-front is an interactive frontend application designed to display real-time ventilator simulation data with comprehensive visualizations. This application provides healthcare professionals and engineers with an intuitive interface to monitor and analyze ventilator performance through dynamic charts and data visualization.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Real-time Data Visualization**: Interactive charts and graphs powered by Recharts for displaying ventilator parameters
+- **Responsive Design**: Built with Bootstrap 5 for a mobile-friendly interface
+- **Interactive UI**: Seamless user experience with React 19
+- **Performance Optimized**: Production-ready build with minification and optimization
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js and npm installed on your system
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository
+   ```bash
+   git clone https://github.com/Ikejrmillsowoo/ventSim-front.git
+   cd ventSim-front
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install dependencies
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Available Scripts
 
-### `npm run eject`
+#### Development
+```bash
+npm start
+```
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload when you make changes, and lint errors will appear in the console.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Testing
+```bash
+npm test
+```
+Launches the test runner in interactive watch mode.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Production Build
+```bash
+npm run build
+```
+Builds the app for production to the `build` folder. The build is minified and optimized for the best performance.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Technology Stack
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **React 19** - UI framework
+- **Bootstrap 5** - Styling and responsive design
+- **Recharts** - Data visualization and charting
+- **Create React App** - Build tooling and development environment
 
-## Learn More
+## Live Demo
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Visit the deployed application: [https://vent-sim-front.vercel.app](https://vent-sim-front.vercel.app)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
 
-### Code Splitting
+This is a standard Create React App project. The main source code is located in the `src/` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contributing
 
-### Analyzing the Bundle Size
+Contributions are welcome! Feel free to open issues or pull requests to improve the application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
+This project is open source and available on GitHub.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Support
 
-### Advanced Configuration
+For more information about Create React App, visit the [official documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For React documentation, visit [reactjs.org](https://reactjs.org/).
