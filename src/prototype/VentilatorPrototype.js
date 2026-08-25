@@ -27,6 +27,7 @@ export default function VentilatorPrototype() {
   const [oxygen, setOxygen] = useState(21);
   const [volume, setVolume] = useState(500);
   const [peep, setPeep] = useState(5);
+  const [supportPressure, setSupportPressure] = useState(0);
 
   const [feedback, setFeedback] = useState(null);
   const [status, setStatus] = useState(null);
@@ -52,6 +53,7 @@ export default function VentilatorPrototype() {
     );
     setVentilatorMode(settings.mode);
     setAbgData(settings.abg);
+    setSupportPressure(settings.supportPressure ?? 0);
 
     postInitVentilatorSettings({
       rate: settings.respiratoryRate,
@@ -88,6 +90,7 @@ export default function VentilatorPrototype() {
         rate,
         pressure,
         oxygen,
+        supportPressure,
         volume,
         peep,
         condition,
