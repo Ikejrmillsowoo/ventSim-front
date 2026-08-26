@@ -68,7 +68,7 @@
     }
   },
   {
-    "scenario": "neuro",
+    "scenario": "neuromuscular disease",
     "mode": "Volume Control",
     "tidalVolume": 400,
     "respiratoryRate": 16,

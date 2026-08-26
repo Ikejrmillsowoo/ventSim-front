@@ -7,7 +7,7 @@ const PatientCondition = ({setPatientCondition}) => {
     { id: 'ards', name: 'ARDS (Acute Respiratory Distress Syndromme)' },
     { id: 'copd', name: 'COPD (Chronic Obstructive Pulmonary Disease)' },
     { id: 'asthma', name: 'ASTHMA' },
-    { id: 'nuero', name: 'NEUROMASCULAR DISEASE' },
+    { id: 'neuromuscular disease', name: 'NEUROMUSCULAR DISEASE' },
     { id: 'pe', name: 'PE (Pulmonary Emobolism)' },
     { id: 'sedation', name: 'SEDATION' },
   ]);
